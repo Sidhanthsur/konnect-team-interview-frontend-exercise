@@ -30,6 +30,7 @@
           Previous
         </button>
         <!-- TODO:sid lets see if you can optimise bottom -->
+        <!-- TODO: if only one element do we change the message ?-->
         <span>
           {{
             `Showing ${currentPage * 9 + 1} to ${
@@ -52,18 +53,44 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, watch, watchEffect } from "vue";
 import useServices from "@/composables/useServices";
+import type { R } from "vitest/dist/reporters-1evA5lom.js";
 
 export default defineComponent({
   name: "ServiceCatalog",
   setup() {
     // Import services from the composable
-    const { services, loading, chunkedServices, currentPage, totalPages } =
-      useServices();
+    const {
+      services,
+      loading,
+      chunkedServices,
+      currentPage,
+      totalPages,
+      getServices,
+    } = useServices();
+
+    const debounce = (fn: Function) => {
+      let timeoutId: ReturnType<typeof setTimeout>;
+      return function (query?: string) {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+          fn(query);
+        }, 1000);
+      };
+    };
+
+    const debouncedGetServices = debounce(getServices);
 
     // Set the search string to a Vue ref
     const searchQuery = ref("");
+
+    // Watch for changes in the search string
+    watch(searchQuery, () => {
+      debouncedGetServices(searchQuery.value);
+    });
 
     return {
       services,

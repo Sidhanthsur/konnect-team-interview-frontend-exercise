@@ -14,13 +14,13 @@ export default function useServices(): any {
   const lastPage = ref<number>(1)
   const chunkedServices = ref<any[]>([])
 
-  const getServices = async (): Promise<any> => {
+  const getServices = async (search?: string): Promise<any> => {
     try {
       // Initialize loading state
       loading.value = true
 
       // Fetch data from the API
-      const { data } = await axios.get('/api/services')
+      const { data } = await axios.get(`/api/services${search ? `?q=${search}` : ''}`)
 
       // Store data in Vue ref
       services.value = data
@@ -62,5 +62,6 @@ export default function useServices(): any {
     currentPage,
     totalPages,
     lastPage,
+    getServices
   }
 }
