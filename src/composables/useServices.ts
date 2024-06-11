@@ -9,6 +9,10 @@ export default function useServices(): any {
   const services = ref<any[]>([])
   const loading = ref<any>(false)
   const error = ref<any>(false)
+  const currentPage = ref<number>(1)
+  const totalPages = ref<number>(1)
+  const lastPage = ref<number>(1)
+  const chunkedServices = ref<any[]>([])
 
   const getServices = async (): Promise<any> => {
     try {
@@ -20,6 +24,22 @@ export default function useServices(): any {
 
       // Store data in Vue ref
       services.value = data
+      // chunk services into groups of 9 
+      // to display 9 services per page
+      chunkedServices.value = services.value.reduce((resultArray: any, item: any, index: number) => {
+        const chunkIndex = Math.floor(index / 9)
+
+        if (!resultArray[chunkIndex]) {
+          resultArray[chunkIndex] = [] // start a new chunk
+        }
+
+        resultArray[chunkIndex].push(item)
+
+        return resultArray
+      }, [])
+      currentPage.value = 0
+      totalPages.value = chunkedServices.value.length
+      lastPage.value = chunkedServices.value.length
     } catch (err: any) {
       error.value = true
     } finally {
@@ -38,5 +58,9 @@ export default function useServices(): any {
     services,
     loading,
     error,
+    chunkedServices,
+    currentPage,
+    totalPages,
+    lastPage,
   }
 }

@@ -6,53 +6,75 @@
       class="search-input"
       data-testid="search-input"
       placeholder="Search services"
-    >
-    <ul
-      v-if="services.length"
-      class="catalog"
-    >
-      <li
-        v-for="service in services"
-        :key="service.id"
-        class="service"
-      >
-        <div>
-          <p>
-            {{ service.name }}
-          </p>
-          <p>{{ service.description }}</p>
-        </div>
-      </li>
-    </ul>
-    <div
-      v-else
-      data-testid="no-results"
-    >
-      No services
+    />
+
+    <div v-if="chunkedServices[currentPage]?.length">
+      <ul class="catalog">
+        <li
+          v-for="service in chunkedServices[currentPage]"
+          :key="service.id"
+          class="service"
+        >
+          <div>
+            <p>
+              {{ service.name }}
+            </p>
+            <p>{{ service.description }}</p>
+          </div>
+        </li>
+      </ul>
+
+      <!-- Buttons for going next and previos-->
+      <div>
+        <button @click="currentPage -= 1" :disabled="currentPage === 0">
+          Previous
+        </button>
+        <!-- TODO:sid lets see if you can optimise bottom -->
+        <span>
+          {{
+            `Showing ${currentPage * 9 + 1} to ${
+              currentPage * 9 + 9 > services.length
+                ? chunkedServices[currentPage].length + currentPage * 9
+                : currentPage * 9 + 9
+            } of ${services.length} services`
+          }}
+        </span>
+        <button
+          @click="currentPage += 1"
+          :disabled="currentPage === totalPages - 1"
+        >
+          Next
+        </button>
+      </div>
     </div>
+    <div v-else data-testid="no-results">No services</div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import useServices from '@/composables/useServices'
+import { defineComponent, ref, computed } from "vue";
+import useServices from "@/composables/useServices";
 
 export default defineComponent({
-  name: 'ServiceCatalog',
+  name: "ServiceCatalog",
   setup() {
     // Import services from the composable
-    const { services, loading } = useServices()
+    const { services, loading, chunkedServices, currentPage, totalPages } =
+      useServices();
 
     // Set the search string to a Vue ref
-    const searchQuery = ref('')
+    const searchQuery = ref("");
 
     return {
       services,
       loading,
       searchQuery,
-    }
+      chunkedServices,
+      currentPage,
+      totalPages,
+    };
   },
-})
+});
 </script>
 
 <style lang="scss" scoped>
