@@ -17,7 +17,6 @@ defineProps<{ service: Service }>();
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  margin: 1rem;
   padding: 1.6rem;
   width: 28rem;
   height: 14.5rem;
