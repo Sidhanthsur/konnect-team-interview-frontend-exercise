@@ -1,7 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { type Service } from "@/constants/serviceTypes";
+import ServiceCatalogPublishStatus from "@/components/ServiceCatalogPublishStatus.vue";
+defineProps<{ service: Service }>();
+</script>
 
 <template>
-  <div class="service-catalog-product__card">Card</div>
+  <div class="service-catalog-product__card">
+    <!-- Published status -->
+    <ServiceCatalogPublishStatus :published="service.published" />
+  </div>
 </template>
 
 <style lang="scss" scoped>

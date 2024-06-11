@@ -15,6 +15,7 @@
         <ServiceCatalogProduct
           v-for="service in chunkedServices[currentPage]"
           :key="service.id"
+          :service="service"
         />
       </div>
 
