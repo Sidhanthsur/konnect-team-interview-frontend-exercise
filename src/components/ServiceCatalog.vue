@@ -104,10 +104,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .service-catalog {
-  margin: 2rem auto;
-  padding: 0 20px;
   background-color: lightgray;
-  max-width: 1366px;
+  padding: 20px;
 }
 
 .catalog {
@@ -150,8 +148,7 @@ input {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   // increase vertical gap alone
-  row-gap: 4rem;
-  column-gap: 1rem;
+  row-gap: 2rem;
   // for tablet view
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
