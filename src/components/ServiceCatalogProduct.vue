@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { type Service } from "@/constants/serviceTypes";
 import ServiceCatalogPublishStatus from "@/components/ServiceCatalogPublishStatus.vue";
+import ServiceCatalogRuntimeLog from "@/components/ServiceCatalogRuntimeLog.vue";
 defineProps<{ service: Service }>();
 </script>
 
@@ -30,6 +31,9 @@ defineProps<{ service: Service }>();
     <div class="service-catalog-product__description">
       {{ service.description }}
     </div>
+
+    <!--Runtime log-->
+    <ServiceCatalogRuntimeLog :metrics="service.metrics" />
   </div>
 </template>
 
