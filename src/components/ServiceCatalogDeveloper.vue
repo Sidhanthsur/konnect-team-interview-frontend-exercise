@@ -12,7 +12,7 @@ const developerAvatars = computed(() => {
 // and then add a "+" sign to indicate there are more developers
 const developerAvatarsToShow = computed(() => {
   if (developerAvatars.value.length > 3) {
-    return developerAvatars.value.slice(0, 2).concat(["+"]);
+    return developerAvatars.value.slice(0, 2).concat(["+"]).reverse();
   }
   return developerAvatars.value;
 });
@@ -46,6 +46,7 @@ const developerAvatarsToShow = computed(() => {
   height: 36px;
   border-radius: 50%;
   background: rgba(241, 241, 248, 1);
+  margin-left: -14px;
 }
 
 .service-catalog-developer__avatars--plus {
@@ -57,7 +58,15 @@ const developerAvatarsToShow = computed(() => {
   font-weight: 600;
 }
 
-.service-catalog-developer__avatars + .service-catalog-developer__avatars {
-  margin-left: -12px;
+.service-catalog-developer__avatars:nth-child(1) {
+  z-index: 2;
+}
+
+.service-catalog-developer__avatars:nth-child(2) {
+  z-index: 1;
+}
+
+.service-catalog-developer__avatars--plus {
+  border: 1px solid white;
 }
 </style>
