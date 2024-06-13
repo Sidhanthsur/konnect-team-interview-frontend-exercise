@@ -89,6 +89,7 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
   align-items: center;
   color: rgba(88, 136, 219, 1);
   font-size: 13px;
+  cursor: pointer;
 }
 
 .service-catalog-product__name {

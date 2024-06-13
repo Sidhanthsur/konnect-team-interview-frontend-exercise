@@ -51,7 +51,6 @@ onUnmounted(() => {
   <div class="service-details">
     <h2 class="service-details__title">Versions ({{ versions.length }})</h2>
     <div class="service-details__versions">
-      <h3 class="service-details__versions-title">Versions</h3>
       <ul class="service-details__versions-list">
         <li
           v-for="version in versions"
