@@ -20,7 +20,10 @@
           />
         </div>
 
-        <button class="service-catalog__create-service">
+        <button
+          @click="isCreateServiceModalVisible = true"
+          class="service-catalog__create-service"
+        >
           <img src="@/assets/plus.svg" alt="plus" width="20" height="20" />
           <span>Service Package</span>
         </button>
@@ -62,17 +65,33 @@
     </div>
     <div v-else data-testid="no-results">No services</div>
   </div>
+  <CreateServiceModal
+    v-if="isCreateServiceModalVisible"
+    @onClose="isCreateServiceModalVisible = false"
+  />
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, watch, watchEffect } from "vue";
+import {
+  defineComponent,
+  ref,
+  computed,
+  watch,
+  watchEffect,
+  defineAsyncComponent,
+} from "vue";
 import useServices from "@/composables/useServices";
 import ServiceCatalogProduct from "@/components/ServiceCatalogProduct.vue";
+
+const CreateServiceModal = defineAsyncComponent(
+  () => import("@/components/modals/CreateServiceModal.vue")
+);
 
 export default defineComponent({
   name: "ServiceCatalog",
   components: {
     ServiceCatalogProduct,
+    CreateServiceModal,
   },
   setup() {
     // Import services from the composable
@@ -99,8 +118,8 @@ export default defineComponent({
 
     const debouncedGetServices = debounce(getServices);
 
-    // Set the search string to a Vue ref
     const searchQuery = ref("");
+    const isCreateServiceModalVisible = ref(false);
 
     // Watch for changes in the search string
     watch(searchQuery, () => {
@@ -114,6 +133,7 @@ export default defineComponent({
       chunkedServices,
       currentPage,
       totalPages,
+      isCreateServiceModalVisible,
     };
   },
 });
