@@ -1,13 +1,23 @@
 <template>
   <div class="service-catalog">
     <div class="service-catalog__header">
-      <h1>Service Catalog</h1>
-      <input
-        v-model="searchQuery"
-        class="search-input"
-        data-testid="search-input"
-        placeholder="Search services"
-      />
+      <div>
+        <h1>Service Hub</h1>
+        <span class="service-catalog__sub-title"
+          >Organize services, manage and track versioning and API service
+          documentation.
+          <span class="service-catalog__sub-title--link">Learn more</span></span
+        >
+      </div>
+      <div class="service-catalog__search-input">
+        <img src="@/assets/search.svg" alt="search" width="20" height="20" />
+        <input
+          class="service-catalog__search-input-box"
+          v-model="searchQuery"
+          data-testid="search-input"
+          placeholder="Search services"
+        />
+      </div>
     </div>
 
     <div v-if="chunkedServices[currentPage]?.length">
@@ -104,8 +114,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .service-catalog {
-  background-color: lightgray;
+  background-color: #efefef;
   padding: 20px;
+  max-width: 100%;
 }
 
 .catalog {
@@ -140,6 +151,7 @@ input {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .service-catalog__cards-container {
@@ -147,8 +159,7 @@ input {
   // 3 products per row
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  // increase vertical gap alone
-  row-gap: 2rem;
+  row-gap: 12px;
   // for tablet view
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
@@ -157,6 +168,37 @@ input {
   // for mobile view
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+  }
+}
+
+.service-catalog__sub-title {
+  font-weight: 400;
+  font-size: 16px;
+  color: #3c4557;
+}
+
+.service-catalog__sub-title--link {
+  color: #1456cb;
+  cursor: pointer;
+}
+
+.service-catalog__search-input {
+  border: 1px solid #e7e7ec;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 8px;
+}
+
+.service-catalog__search-input-box {
+  border: none;
+  width: 100%;
+  color: #6f7787;
+  font-size: 14px;
+
+  &:focus {
+    outline: none;
   }
 }
 </style>

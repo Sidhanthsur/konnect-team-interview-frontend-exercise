@@ -55,9 +55,18 @@ defineProps<{ service: Service }>();
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  justify-self: center;
   padding: 1.6rem;
   width: 42.6rem;
   height: 23.2rem;
+
+  // responsive for tablet
+  @media (max-width: 1024px) {
+    width: 32.6rem;
+    height: 20.2rem;
+  }
+
+  // sh
 }
 
 .service-catalog-product__top-header {
@@ -90,7 +99,7 @@ defineProps<{ service: Service }>();
   font-size: 13px;
   color: rgba(112, 120, 136, 1);
   font-weight: 400;
-  margin-top: 4px;
+  margin-top: 8px;
 }
 
 .service-catalog-product__bottom {
