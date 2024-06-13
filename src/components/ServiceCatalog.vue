@@ -116,7 +116,7 @@ export default defineComponent({
 .service-catalog {
   background-color: #efefef;
   padding: 20px;
-  max-width: 100%;
+  max-width: 1400px;
 }
 
 .catalog {

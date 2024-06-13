@@ -59,14 +59,6 @@ defineProps<{ service: Service }>();
   padding: 1.6rem;
   width: 42.6rem;
   height: 23.2rem;
-
-  // responsive for tablet
-  @media (max-width: 1024px) {
-    width: 32.6rem;
-    height: 20.2rem;
-  }
-
-  // sh
 }
 
 .service-catalog-product__top-header {
