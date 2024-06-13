@@ -13,26 +13,35 @@ const formatRequests = (requests: number) => {
 </script>
 
 <template>
-  <ul>
+  <ul class="service-catalog-runtime-log__log">
     <template v-if="metrics">
       <li>
-        <span>{{ metrics.latency }} ms latency</span>
-      </li>
-      <li>
-        <span>{{ metrics.uptime }} uptime</span>
-      </li>
-      <li>
-        <span
-          >{{ formatRequests(metrics.requests) }} requests
-          <span v-if="metrics.errors"
-            >. {{ metrics.errors.toFixed(2) }} % errors</span
-          ></span
+        <span class="service-catalog-runtime-log__log-value"
+          >{{ metrics.latency }}ms</span
         >
+        latency
+      </li>
+      <li>
+        <span class="service-catalog-runtime-log__log-value"
+          >{{ metrics.uptime * 100 }}%
+        </span>
+        uptime
+      </li>
+      <li>
+        <span class="service-catalog-runtime-log__log-value">{{
+          formatRequests(metrics.requests)
+        }}</span>
+        requests
+        <span v-if="metrics.errors"
+          >·
+          <span class="service-catalog-runtime-log__log-value"
+            >{{ metrics.errors.toFixed(2) }}%</span
+          >
+          errors
+        </span>
       </li>
     </template>
-    <li class="service-catalog-runtime-log__marker--disable" v-else>
-      Not configured with runtime yet
-    </li>
+    <li v-else>Not configured with runtime yet</li>
   </ul>
 </template>
 <style scoped>
@@ -53,5 +62,15 @@ ul {
 .service-catalog-runtime-log__marker--disable {
   color: rgba(112, 120, 136, 1);
   font-weight: 600;
+}
+
+.service-catalog-runtime-log__log {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(112, 120, 136, 1);
+}
+
+.service-catalog-runtime-log__log-value {
+  color: rgba(60, 69, 87, 1);
 }
 </style>
