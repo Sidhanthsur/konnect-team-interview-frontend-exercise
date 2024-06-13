@@ -2,38 +2,49 @@
 import { type Service } from "@/constants/serviceTypes";
 import ServiceCatalogPublishStatus from "@/components/ServiceCatalogPublishStatus.vue";
 import ServiceCatalogRuntimeLog from "@/components/ServiceCatalogRuntimeLog.vue";
+import ServiceCatalogDeveloper from "@/components/ServiceCatalogDeveloper.vue";
+
 defineProps<{ service: Service }>();
 </script>
 
 <template>
   <div class="service-catalog-product__card">
-    <div class="service-catalog-product__top-header">
-      <!-- Published status -->
-      <ServiceCatalogPublishStatus :published="service.published" />
-      <!--Version-->
-      <div
-        class="service-catalog-product__version"
-        v-if="service?.versions?.length"
-      >
-        <p>
-          {{
-            `${service.versions.length} ${
-              service.versions.length > 1 ? "versions" : "Version"
-            }`
-          }}
-        </p>
+    <div>
+      <div class="service-catalog-product__top-header">
+        <!-- Published status -->
+        <ServiceCatalogPublishStatus :published="service.published" />
+        <!--Version-->
+        <div
+          class="service-catalog-product__version"
+          v-if="service?.versions?.length"
+        >
+          <p>
+            {{
+              `${service.versions.length} ${
+                service.versions.length > 1 ? "versions" : "Version"
+              }`
+            }}
+          </p>
+        </div>
+      </div>
+
+      <!--Name-->
+      <div class="service-catalog-product__name">{{ service.name }}</div>
+      <!--Description-->
+      <div class="service-catalog-product__description">
+        {{ service.description }}
       </div>
     </div>
 
-    <!--Name-->
-    <div class="service-catalog-product__name">{{ service.name }}</div>
-    <!--Description-->
-    <div class="service-catalog-product__description">
-      {{ service.description }}
+    <!--Bottom -->
+    <div class="service-catalog-product__bottom">
+      <!--Runtime log-->
+      <ServiceCatalogRuntimeLog :metrics="service.metrics" />
+      <ServiceCatalogDeveloper
+        v-if="service.versions.length"
+        :versions="service.versions"
+      />
     </div>
-
-    <!--Runtime log-->
-    <ServiceCatalogRuntimeLog :metrics="service.metrics" />
   </div>
 </template>
 
@@ -43,6 +54,7 @@ defineProps<{ service: Service }>();
   border-radius: 8px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 1.6rem;
   width: 42.6rem;
   height: 23.2rem;
@@ -52,6 +64,7 @@ defineProps<{ service: Service }>();
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 33px;
 }
 
 .service-catalog-product__version {
@@ -70,6 +83,7 @@ defineProps<{ service: Service }>();
   font-size: 20px;
   font-weight: 500;
   color: rgba(60, 69, 87, 1);
+  margin-top: 12px;
 }
 
 .service-catalog-product__description {
@@ -77,5 +91,11 @@ defineProps<{ service: Service }>();
   color: rgba(112, 120, 136, 1);
   font-weight: 400;
   margin-top: 4px;
+}
+
+.service-catalog-product__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

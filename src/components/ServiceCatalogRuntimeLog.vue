@@ -52,7 +52,7 @@ li::marker {
 ul {
   font-size: 12px;
   color: rgba(60, 69, 87, 1);
-  padding: 1.6rem;
+  padding-left: 1.6rem;
 }
 
 .service-catalog-runtime-log__marker--disable::marker {
