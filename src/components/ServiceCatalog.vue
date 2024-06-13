@@ -9,14 +9,21 @@
           <span class="service-catalog__sub-title--link">Learn more</span></span
         >
       </div>
-      <div class="service-catalog__search-input">
-        <img src="@/assets/search.svg" alt="search" width="20" height="20" />
-        <input
-          class="service-catalog__search-input-box"
-          v-model="searchQuery"
-          data-testid="search-input"
-          placeholder="Search services"
-        />
+      <div :style="{ display: 'flex' }">
+        <div class="service-catalog__search-input">
+          <img src="@/assets/search.svg" alt="search" width="20" height="20" />
+          <input
+            class="service-catalog__search-input-box"
+            v-model="searchQuery"
+            data-testid="search-input"
+            placeholder="Search services"
+          />
+        </div>
+
+        <button class="service-catalog__create-service">
+          <img src="@/assets/plus.svg" alt="plus" width="20" height="20" />
+          <span>Service Package</span>
+        </button>
       </div>
     </div>
 
@@ -116,42 +123,14 @@ export default defineComponent({
 .service-catalog {
   background-color: #efefef;
   padding: 20px;
-  max-width: 1400px;
-}
-
-.catalog {
-  display: flex;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 20px 0 0 0;
-}
-
-.service {
-  border: 1px solid #999;
-  border-radius: 10px;
-  margin: 6px;
-  padding: 8px 16px;
-  width: 200px;
-
-  p:first-of-type {
-    color: #333;
-    font-weight: 700;
-  }
-
-  p {
-    color: #666;
-  }
-}
-
-input {
-  padding: 8px 4px;
+  max-width: 140rem;
 }
 
 .service-catalog__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 }
 
 .service-catalog__cards-container {
@@ -159,7 +138,7 @@ input {
   // 3 products per row
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  row-gap: 12px;
+  row-gap: 1.2rem;
   // for tablet view
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
@@ -173,7 +152,7 @@ input {
 
 .service-catalog__sub-title {
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1.6rem;
   color: #3c4557;
 }
 
@@ -187,18 +166,33 @@ input {
   background-color: #fff;
   display: flex;
   align-items: center;
-  height: 44px;
-  padding: 0 8px;
+  height: 4.4rem;
+  padding: 0 0.8rem;
+  margin-right: 1rem;
 }
 
 .service-catalog__search-input-box {
   border: none;
   width: 100%;
   color: #6f7787;
-  font-size: 14px;
+  font-size: 1.4rem;
 
   &:focus {
     outline: none;
   }
+}
+
+.service-catalog__create-service {
+  height: 4.4rem;
+  padding: 1.2rem 2.4rem 1.2rem 1.6rem;
+  background: #07a88d;
+  display: flex;
+  align-items: center;
+  border: none;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: white;
+  border-radius: 10rem;
+  cursor: pointer;
 }
 </style>
