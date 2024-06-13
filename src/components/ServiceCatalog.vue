@@ -40,27 +40,49 @@
       </div>
 
       <!-- Buttons for going next and previos-->
-      <div>
-        <button @click="currentPage -= 1" :disabled="currentPage === 0">
-          Previous
-        </button>
+      <div class="service-catalog__pagination">
+        <img
+          v-if="currentPage === 0"
+          src="@/assets/disabled-black.svg"
+          alt="arrow-left"
+        />
+        <img
+          v-else
+          @click="currentPage -= 1"
+          src="@/assets/enabled-back.svg"
+          alt="arrow-left"
+        />
+        <!-- </button> -->
         <!-- TODO:sid lets see if you can optimise bottom -->
         <!-- TODO: if only one element do we change the message ?-->
-        <span>
-          {{
-            `Showing ${currentPage * 9 + 1} to ${
-              currentPage * 9 + 9 > services.length
-                ? chunkedServices[currentPage].length + currentPage * 9
-                : currentPage * 9 + 9
-            } of ${services.length} services`
-          }}
+        <span class="service-catalog__pagination-title">
+          <span
+            :style="{
+              fontWeight: 600,
+              color: '#3c4557',
+            }"
+          >
+            {{
+              `${currentPage * 9 + 1} to ${
+                currentPage * 9 + 9 > services.length
+                  ? chunkedServices[currentPage].length + currentPage * 9
+                  : currentPage * 9 + 9
+              }`
+            }}
+          </span>
+          {{ `of ${services.length} services` }}
         </span>
-        <button
+        <img
+          v-if="currentPage === totalPages - 1"
+          src="@/assets/disabled-forward.svg"
+          alt="arrow-left"
+        />
+        <img
+          v-else
           @click="currentPage += 1"
-          :disabled="currentPage === totalPages - 1"
-        >
-          Next
-        </button>
+          src="@/assets/enabled-forward.svg"
+          alt="arrow-left"
+        />
       </div>
     </div>
     <div v-else data-testid="no-results">No services</div>
@@ -214,5 +236,25 @@ export default defineComponent({
   color: white;
   border-radius: 10rem;
   cursor: pointer;
+}
+
+.service-catalog__pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 26.2rem;
+  position: sticky;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  margin-top: 1.2rem;
+}
+
+.service-catalog__pagination-title {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #707888;
+  opacity: 70%;
 }
 </style>
