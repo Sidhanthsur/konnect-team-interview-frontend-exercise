@@ -5,22 +5,22 @@ import DeveloperDetailsModal from "@/components/modals/DeveloperDetailsModal.vue
 const props = defineProps<{ versions: Version[] }>();
 const isDeveloperModalVisible = ref(false);
 
-const getDevelopers = computed(() => {
-  const developers = props.versions
+const uniqueDevelopers = computed(() => {
+  return props.versions
     .filter((version) => version.developer)
-    .map((version) => ({
-      avatar: version.developer.avatar,
-      name: version.developer.name,
-      id: version.developer.id,
-    }))
+    .map((version) => version.developer)
     .filter(
       (developer, index, self) =>
         index === self.findIndex((t) => t.id === developer.id)
     );
+});
+
+const getDevelopers = computed(() => {
+  const developers = [...uniqueDevelopers.value];
 
   if (developers.length > 3) {
     developers.splice(2);
-    developers.push({ avatar: "+", name: "", id: "" });
+    developers.push({ avatar: "+", name: "", id: "", email: "" });
     return developers.reverse();
   }
   return developers;
@@ -37,7 +37,7 @@ const getDevelopers = computed(() => {
         class="service-catalog-developer__avatars service-catalog-developer__avatars--plus"
         v-if="avatar === '+'"
       >
-        + {{ props.versions.length - 2 }}
+        + {{ uniqueDevelopers.length - 2 }}
       </div>
 
       <img
@@ -50,11 +50,7 @@ const getDevelopers = computed(() => {
   </div>
   <DeveloperDetailsModal
     v-if="isDeveloperModalVisible"
-    :developers="
-      versions
-        .filter((version) => version.developer)
-        .map((version) => version.developer)
-    "
+    :developers="uniqueDevelopers"
   />
 </template>
 

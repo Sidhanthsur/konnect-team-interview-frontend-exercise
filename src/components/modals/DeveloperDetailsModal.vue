@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { type Developer } from "@/constants/serviceTypes";
 import Dialog from "@/components/modals/Dialog.vue";
 const props = defineProps<{ developers: Developer[] }>();
+console.log(props.developers);
 </script>
 
 <template>
