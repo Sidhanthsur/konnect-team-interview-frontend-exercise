@@ -51,6 +51,7 @@ const getDevelopers = computed(() => {
   <DeveloperDetailsModal
     v-if="isDeveloperModalVisible"
     :developers="uniqueDevelopers"
+    @onClose="isDeveloperModalVisible = false"
   />
 </template>
 

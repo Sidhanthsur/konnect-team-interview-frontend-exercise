@@ -3,13 +3,12 @@ import { computed } from "vue";
 import { type Developer } from "@/constants/serviceTypes";
 import Dialog from "@/components/modals/Dialog.vue";
 const props = defineProps<{ developers: Developer[] }>();
-console.log(props.developers);
+defineEmits(["onClose"]);
 </script>
 
 <template>
-  <Dialog>
+  <Dialog @onClose="$emit('onClose')" title="Developers">
     <div class="service-catalog-developer">
-      <h4>Developers</h4>
       <template v-for="{ avatar, name } in props.developers">
         <div class="developer-details-modal__content">
           <img
