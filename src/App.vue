@@ -1,7 +1,9 @@
 <template>
   <header>
-    <div class="nav">
-      <router-link to="/"> Home </router-link>
+    <div class="nav-bar">
+      <router-link to="/">
+        <img src="@/assets/logo.svg" alt="Kong logo" />
+      </router-link>
     </div>
   </header>
   <main>
@@ -31,6 +33,14 @@ export default defineComponent({
       color: green;
     }
   }
+}
+
+.nav-bar {
+  height: 70px;
+  width: 100%;
+  background: linear-gradient(90deg, #09224f 100%, #073382 100%);
+  display: flex;
+  align-items: center;
 }
 </style>
 
