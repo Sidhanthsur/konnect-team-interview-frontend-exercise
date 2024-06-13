@@ -23,7 +23,7 @@ const formatRequests = (requests: number) => {
       </li>
       <li>
         <span class="service-catalog-runtime-log__log-value"
-          >{{ metrics.uptime * 100 }}%
+          >{{ (metrics.uptime * 100).toFixed(2) }}%
         </span>
         uptime
       </li>
