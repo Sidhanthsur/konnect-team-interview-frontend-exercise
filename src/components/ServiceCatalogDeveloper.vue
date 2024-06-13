@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { type Version } from "@/constants/serviceTypes";
+import DeveloperDetailsModal from "@/components/modals/DeveloperDetailsModal.vue";
 const props = defineProps<{ versions: Version[] }>();
+const isDeveloperModalVisible = ref(false);
 
 const getDevelopers = computed(() => {
   const developers = props.versions
     .filter((version) => version.developer)
-    .map((version) => {
-      return {
-        avatar: version.developer.avatar,
-        name: version.developer.name,
-        id: version.developer.id,
-      };
-    });
+    .map((version) => ({
+      avatar: version.developer.avatar,
+      name: version.developer.name,
+      id: version.developer.id,
+    }))
+    .filter(
+      (developer, index, self) =>
+        index === self.findIndex((t) => t.id === developer.id)
+    );
 
   if (developers.length > 3) {
     developers.splice(2);
@@ -24,7 +28,10 @@ const getDevelopers = computed(() => {
 </script>
 
 <template>
-  <div class="service-catalog-developer">
+  <div
+    class="service-catalog-developer"
+    @click="isDeveloperModalVisible = true"
+  >
     <template v-for="{ avatar, name } in getDevelopers">
       <div
         class="service-catalog-developer__avatars service-catalog-developer__avatars--plus"
@@ -41,6 +48,14 @@ const getDevelopers = computed(() => {
       />
     </template>
   </div>
+  <DeveloperDetailsModal
+    v-if="isDeveloperModalVisible"
+    :developers="
+      versions
+        .filter((version) => version.developer)
+        .map((version) => version.developer)
+    "
+  />
 </template>
 
 <style scoped>
