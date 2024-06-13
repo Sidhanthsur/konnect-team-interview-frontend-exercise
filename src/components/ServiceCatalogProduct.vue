@@ -3,8 +3,18 @@ import { type Service } from "@/constants/serviceTypes";
 import ServiceCatalogPublishStatus from "@/components/ServiceCatalogPublishStatus.vue";
 import ServiceCatalogRuntimeLog from "@/components/ServiceCatalogRuntimeLog.vue";
 import ServiceCatalogDeveloper from "@/components/ServiceCatalogDeveloper.vue";
+import { useServiceDetailsStore } from "@/stores/serviceDetails";
+import { useRouter } from "vue-router";
 
 defineProps<{ service: Service }>();
+
+const serviceDetailsStore = useServiceDetailsStore();
+const router = useRouter();
+
+const setVersionsInServiceDetailsStore = (service: Service) => {
+  serviceDetailsStore.versions = service.versions;
+  router.push({ name: "serviceDetails" });
+};
 </script>
 
 <template>
@@ -17,6 +27,7 @@ defineProps<{ service: Service }>();
         <div
           class="service-catalog-product__version"
           v-if="service?.versions?.length"
+          @click="setVersionsInServiceDetailsStore(service)"
         >
           <p>
             {{
