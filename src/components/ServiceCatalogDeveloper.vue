@@ -3,35 +3,41 @@ import { computed } from "vue";
 import { type Version } from "@/constants/serviceTypes";
 const props = defineProps<{ versions: Version[] }>();
 
-// write a computed to get all the developer's avatar from the versions
-const developerAvatars = computed(() => {
-  return props.versions.map((version) => version.developer?.avatar ?? "");
-});
+const getDevelopers = computed(() => {
+  const developers = props.versions
+    .filter((version) => version.developer)
+    .map((version) => {
+      return {
+        avatar: version.developer.avatar,
+        name: version.developer.name,
+        id: version.developer.id,
+      };
+    });
 
-// if more than 3 developers, only show the first 3
-// and then add a "+" sign to indicate there are more developers
-const developerAvatarsToShow = computed(() => {
-  if (developerAvatars.value.length > 3) {
-    return developerAvatars.value.slice(0, 2).concat(["+"]).reverse();
+  if (developers.length > 3) {
+    developers.splice(2);
+    developers.push({ avatar: "+", name: "", id: "" });
+    return developers.reverse();
   }
-  return developerAvatars.value;
+  return developers;
 });
 </script>
 
 <template>
   <div class="service-catalog-developer">
-    <template v-for="avatar in developerAvatarsToShow">
+    <template v-for="{ avatar, name } in getDevelopers">
       <div
         class="service-catalog-developer__avatars service-catalog-developer__avatars--plus"
         v-if="avatar === '+'"
       >
-        + {{ developerAvatars.length - 2 }}
+        + {{ props.versions.length - 2 }}
       </div>
+
       <img
         v-else-if="avatar"
         class="service-catalog-developer__avatars"
         :src="avatar"
-        alt="Developer avatar"
+        :alt="name"
       />
     </template>
   </div>
