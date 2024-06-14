@@ -7,7 +7,7 @@ defineEmits(["onClose"]);
     <div class="dialog__content">
       <div class="dialog__header">
         <h4>{{ title }}</h4>
-        <button @click="$emit('onClose')">X</button>
+        <button class="dialog__close" @click="$emit('onClose')">X</button>
       </div>
       <slot></slot>
     </div>
@@ -26,6 +26,7 @@ defineEmits(["onClose"]);
   align-items: center;
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.1);
+  cursor: auto;
 }
 
 .dialog__content {
@@ -42,5 +43,14 @@ defineEmits(["onClose"]);
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.dialog__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.6rem;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 0.4rem;
 }
 </style>

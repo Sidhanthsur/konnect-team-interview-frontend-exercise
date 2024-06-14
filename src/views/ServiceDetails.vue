@@ -49,59 +49,62 @@ onUnmounted(() => {
 </script>
 <template>
   <div class="service-details">
-    <h2 class="service-details__title">Versions ({{ versions.length }})</h2>
-    <ul class="service-details__versions-list">
-      <li
-        v-for="version in versions"
-        :key="version.id"
-        class="service-details__version"
-      >
-        <div class="service-details__detail-name">v{{ version.name }}</div>
-        <div class="service-details__detail-description">
-          {{ version.description }}
-        </div>
-        <div>
-          <span class="service-details__http-tag">HTTP</span>
-          <span
-            :style="{
-              background: '#BDD3F9',
-              marginLeft: '0.5rem',
-            }"
-            class="service-details__http-tag"
-            >REST</span
-          >
-        </div>
-
-        <div
-          class="service-details__developer"
-          :class="{
-            'service-details__developer--empty-img': !version.developer,
-          }"
+    <router-link class="service-details__back" to="/">← Go Back</router-link>
+    <div class="service-details__card">
+      <h2 class="service-details__title">Versions ({{ versions.length }})</h2>
+      <ul class="service-details__versions-list">
+        <li
+          v-for="version in versions"
+          :key="version.id"
+          class="service-details__version"
         >
-          <img
-            v-if="version.developer"
-            :src="version.developer.avatar"
-            :alt="version.developer.name"
-            class="service-details__developer-avatar"
-          />
+          <div class="service-details__detail-name">v{{ version.name }}</div>
+          <div class="service-details__detail-description">
+            {{ version.description }}
+          </div>
+          <div>
+            <span class="service-details__http-tag">HTTP</span>
+            <span
+              :style="{
+                background: '#BDD3F9',
+                marginLeft: '0.5rem',
+              }"
+              class="service-details__http-tag"
+              >REST</span
+            >
+          </div>
+
           <div
-            :style="{
-              marginLeft: '1rem',
+            class="service-details__developer"
+            :class="{
+              'service-details__developer--empty-img': !version.developer,
             }"
           >
-            <span
+            <img
               v-if="version.developer"
-              class="service-details__developer-name"
-              >{{ version.developer.name }}</span
+              :src="version.developer.avatar"
+              :alt="version.developer.name"
+              class="service-details__developer-avatar"
+            />
+            <div
+              :style="{
+                marginLeft: '1rem',
+              }"
             >
-            <!-- Show the updated relative from today like 2 days ago etc-->
-            <div class="service-details__updated-at">
-              {{ timeDifference(new Date(version.updated_at)) }}
+              <span
+                v-if="version.developer"
+                class="service-details__developer-name"
+                >{{ version.developer.name }}</span
+              >
+              <!-- Show the updated relative from today like 2 days ago etc-->
+              <div class="service-details__updated-at">
+                {{ timeDifference(new Date(version.updated_at)) }}
+              </div>
             </div>
           </div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <style scoped>
@@ -111,11 +114,31 @@ onUnmounted(() => {
   justify-content: center;
   padding: 2rem 4rem;
 }
+
+.service-details__card {
+  background: #fff;
+  border-radius: 0.8rem;
+  padding: 2rem;
+  box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
+  margin-top: 1.6rem;
+}
 .service-details__version {
   display: flex;
   border-bottom: 1px solid #f1f1f5;
   padding-bottom: 1.2rem;
   margin-bottom: 1rem;
+}
+
+.service-details__version:last-child {
+  border-bottom: none;
+}
+
+.service-details__back {
+  font-size: 1.6rem;
+  color: #1155cb;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .service-details__versions-list {
