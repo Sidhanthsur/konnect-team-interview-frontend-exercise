@@ -72,8 +72,14 @@ onUnmounted(() => {
           >
         </div>
 
-        <div v-if="version.developer" class="service-details__developer">
+        <div
+          class="service-details__developer"
+          :class="{
+            'service-details__developer--empty-img': !version.developer,
+          }"
+        >
           <img
+            v-if="version.developer"
             :src="version.developer.avatar"
             :alt="version.developer.name"
             class="service-details__developer-avatar"
@@ -83,9 +89,11 @@ onUnmounted(() => {
               marginLeft: '1rem',
             }"
           >
-            <span class="service-details__developer-name">{{
-              version.developer.name
-            }}</span>
+            <span
+              v-if="version.developer"
+              class="service-details__developer-name"
+              >{{ version.developer.name }}</span
+            >
             <!-- Show the updated relative from today like 2 days ago etc-->
             <div class="service-details__updated-at">
               {{ timeDifference(new Date(version.updated_at)) }}
@@ -127,6 +135,10 @@ onUnmounted(() => {
 .service-details__developer {
   display: flex;
   margin-left: 20rem;
+}
+
+.service-details__developer--empty-img {
+  align-items: center;
 }
 
 .service-details__developer-avatar {
