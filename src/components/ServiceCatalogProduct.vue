@@ -18,8 +18,15 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
 </script>
 
 <template>
-  <div class="service-catalog-product__card">
-    <div>
+  <div
+    class="service-catalog-product__card"
+    @click.self="setVersionsInServiceDetailsStore(service)"
+  >
+    <div
+      :style="{
+        'pointer-events': 'none',
+      }"
+    >
       <div class="service-catalog-product__top-header">
         <!-- Published status -->
         <ServiceCatalogPublishStatus :published="service.published" />
@@ -27,7 +34,6 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
         <div
           class="service-catalog-product__version"
           v-if="service?.versions?.length"
-          @click="setVersionsInServiceDetailsStore(service)"
         >
           <p>
             {{
@@ -70,6 +76,7 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
   padding: 1.6rem;
   width: 42.6rem;
   height: 23.2rem;
+  cursor: pointer;
 }
 
 .service-catalog-product__top-header {
