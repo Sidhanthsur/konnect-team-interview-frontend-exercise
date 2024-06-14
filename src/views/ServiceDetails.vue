@@ -86,11 +86,7 @@ onUnmounted(() => {
               :alt="version.developer.name"
               class="service-details__developer-avatar"
             />
-            <div
-              :style="{
-                marginLeft: '1rem',
-              }"
-            >
+            <div>
               <span
                 v-if="version.developer"
                 class="service-details__developer-name"
@@ -113,6 +109,11 @@ onUnmounted(() => {
   flex-direction: column;
   justify-content: center;
   padding: 2rem 4rem;
+
+  @media (max-width: 768px) {
+    padding: 0;
+    padding-top: 2rem;
+  }
 }
 
 .service-details__card {
@@ -127,6 +128,26 @@ onUnmounted(() => {
   border-bottom: 1px solid #f1f1f5;
   padding-bottom: 1.2rem;
   margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    div {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.service-details__developer {
+  display: flex;
+  margin-left: 20rem;
+
+  @media (max-width: 1024px) {
+    margin-left: 15rem;
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+  }
 }
 
 .service-details__version:last-child {
@@ -155,11 +176,6 @@ onUnmounted(() => {
   border-radius: 0.4rem;
 }
 
-.service-details__developer {
-  display: flex;
-  margin-left: 20rem;
-}
-
 .service-details__developer--empty-img {
   align-items: center;
 }
@@ -169,6 +185,7 @@ onUnmounted(() => {
   height: 2rem;
   border-radius: 50%;
   margin-left: 0.5rem;
+  margin-right: 1rem;
 }
 
 .service-details__detail-name {
