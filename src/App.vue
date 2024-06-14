@@ -43,5 +43,6 @@ body {
   font-weight: 400;
   line-height: 1.2;
   margin: 0 auto;
+  background-color: #efefef;
 }
 </style>
