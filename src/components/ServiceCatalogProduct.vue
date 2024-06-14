@@ -3,13 +3,30 @@ import { type Service } from "@/constants/serviceTypes";
 import ServiceCatalogPublishStatus from "@/components/ServiceCatalogPublishStatus.vue";
 import ServiceCatalogRuntimeLog from "@/components/ServiceCatalogRuntimeLog.vue";
 import ServiceCatalogDeveloper from "@/components/ServiceCatalogDeveloper.vue";
+import { useServiceDetailsStore } from "@/stores/serviceDetails";
+import { useRouter } from "vue-router";
 
 defineProps<{ service: Service }>();
+
+const serviceDetailsStore = useServiceDetailsStore();
+const router = useRouter();
+
+const setVersionsInServiceDetailsStore = (service: Service) => {
+  serviceDetailsStore.versions = service.versions;
+  router.push({ name: "serviceDetails" });
+};
 </script>
 
 <template>
-  <div class="service-catalog-product__card">
-    <div>
+  <div
+    class="service-catalog-product__card"
+    @click.self="setVersionsInServiceDetailsStore(service)"
+  >
+    <div
+      :style="{
+        'pointer-events': 'none',
+      }"
+    >
       <div class="service-catalog-product__top-header">
         <!-- Published status -->
         <ServiceCatalogPublishStatus :published="service.published" />
@@ -59,6 +76,18 @@ defineProps<{ service: Service }>();
   padding: 1.6rem;
   width: 42.6rem;
   height: 23.2rem;
+  cursor: pointer;
+
+  // for tablet
+  @media (max-width: 1024px) {
+    width: 35.6rem;
+    height: 19.72rem;
+  }
+
+  // for mobile
+  @media (max-width: 768px) {
+    width: 32.04rem;
+  }
 }
 
 .service-catalog-product__top-header {
@@ -78,6 +107,7 @@ defineProps<{ service: Service }>();
   align-items: center;
   color: rgba(88, 136, 219, 1);
   font-size: 13px;
+  cursor: pointer;
 }
 
 .service-catalog-product__name {
