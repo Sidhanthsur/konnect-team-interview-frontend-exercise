@@ -50,47 +50,69 @@ onUnmounted(() => {
 <template>
   <div class="service-details">
     <h2 class="service-details__title">Versions ({{ versions.length }})</h2>
-    <div class="service-details__versions">
-      <ul class="service-details__versions-list">
-        <li
-          v-for="version in versions"
-          :key="version.id"
-          class="service-details__version"
-        >
-          <div>v{{ version.name }}</div>
-          <div>{{ version.description }}</div>
-          <div>
-            <span class="service-details__http-tag">HTTP</span>
-            <span
-              :style="{
-                background: '#BDD3F9',
-                marginLeft: '0.5rem',
-              }"
-              class="service-details__http-tag"
-              >REST</span
-            >
-          </div>
+    <ul class="service-details__versions-list">
+      <li
+        v-for="version in versions"
+        :key="version.id"
+        class="service-details__version"
+      >
+        <div class="service-details__detail-name">v{{ version.name }}</div>
+        <div class="service-details__detail-description">
+          {{ version.description }}
+        </div>
+        <div>
+          <span class="service-details__http-tag">HTTP</span>
+          <span
+            :style="{
+              background: '#BDD3F9',
+              marginLeft: '0.5rem',
+            }"
+            class="service-details__http-tag"
+            >REST</span
+          >
+        </div>
 
-          <div v-if="version.developer" class="service-details__developer">
-            <img
-              :src="version.developer.avatar"
-              :alt="version.developer.name"
-              class="service-details__developer-avatar"
-            />
-            <div>
-              <span>{{ version.developer.name }}</span>
-              <!-- Show the updated relative from today like 2 days ago etc-->
-              <div>{{ timeDifference(new Date(version.updated_at)) }}</div>
+        <div v-if="version.developer" class="service-details__developer">
+          <img
+            :src="version.developer.avatar"
+            :alt="version.developer.name"
+            class="service-details__developer-avatar"
+          />
+          <div
+            :style="{
+              marginLeft: '1rem',
+            }"
+          >
+            <span class="service-details__developer-name">{{
+              version.developer.name
+            }}</span>
+            <!-- Show the updated relative from today like 2 days ago etc-->
+            <div class="service-details__updated-at">
+              {{ timeDifference(new Date(version.updated_at)) }}
             </div>
           </div>
-        </li>
-      </ul>
-    </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 <style scoped>
+.service-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 4rem;
+}
 .service-details__version {
   display: flex;
+  border-bottom: 1px solid #f1f1f5;
+  padding-bottom: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.service-details__versions-list {
+  padding: 0;
+  max-width: 80rem;
 }
 
 .service-details__http-tag {
@@ -104,6 +126,7 @@ onUnmounted(() => {
 
 .service-details__developer {
   display: flex;
+  margin-left: 20rem;
 }
 
 .service-details__developer-avatar {
@@ -111,5 +134,32 @@ onUnmounted(() => {
   height: 2rem;
   border-radius: 50%;
   margin-left: 0.5rem;
+}
+
+.service-details__detail-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #262626;
+  width: 6rem;
+}
+
+.service-details__detail-description {
+  width: 24rem;
+  color: #8a8a8a;
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-right: 3rem;
+}
+
+.service-details__developer-name {
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #3c4557;
+}
+
+.service-details__updated-at {
+  color: #8a8a8a;
+  font-size: 1.2rem;
+  font-weight: 400;
 }
 </style>
