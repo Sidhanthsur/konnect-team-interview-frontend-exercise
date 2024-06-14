@@ -1,91 +1,100 @@
 <template>
-  <div class="service-catalog">
-    <div class="service-catalog__header">
-      <div>
-        <h1>Service Hub</h1>
-        <span class="service-catalog__sub-title"
-          >Organize services, manage and track versioning and API service
-          documentation.
-          <span class="service-catalog__sub-title--link">Learn more</span></span
-        >
+  <div class="service-catalog-page">
+    <div class="service-catalog">
+      <div class="service-catalog__header">
+        <div>
+          <h1>Service Hub</h1>
+          <span class="service-catalog__sub-title"
+            >Organize services, manage and track versioning and API service
+            documentation.
+            <span class="service-catalog__sub-title--link"
+              >Learn more</span
+            ></span
+          >
+        </div>
+        <div :style="{ display: 'flex' }">
+          <div class="service-catalog__search-input">
+            <img
+              src="@/assets/search.svg"
+              alt="search"
+              width="20"
+              height="20"
+            />
+            <input
+              class="service-catalog__search-input-box"
+              v-model="searchQuery"
+              data-testid="search-input"
+              placeholder="Search services"
+            />
+          </div>
+
+          <button
+            @click="isCreateServiceModalVisible = true"
+            class="service-catalog__create-service"
+          >
+            <img src="@/assets/plus.svg" alt="plus" width="20" height="20" />
+            <span>Service Package</span>
+          </button>
+        </div>
       </div>
-      <div :style="{ display: 'flex' }">
-        <div class="service-catalog__search-input">
-          <img src="@/assets/search.svg" alt="search" width="20" height="20" />
-          <input
-            class="service-catalog__search-input-box"
-            v-model="searchQuery"
-            data-testid="search-input"
-            placeholder="Search services"
+
+      <div v-if="chunkedServices[currentPage]?.length">
+        <div class="service-catalog__cards-container">
+          <ServiceCatalogProduct
+            v-for="service in chunkedServices[currentPage]"
+            :key="service.id"
+            :service="service"
           />
         </div>
 
-        <button
-          @click="isCreateServiceModalVisible = true"
-          class="service-catalog__create-service"
-        >
-          <img src="@/assets/plus.svg" alt="plus" width="20" height="20" />
-          <span>Service Package</span>
-        </button>
-      </div>
-    </div>
-
-    <div v-if="chunkedServices[currentPage]?.length">
-      <div class="service-catalog__cards-container">
-        <ServiceCatalogProduct
-          v-for="service in chunkedServices[currentPage]"
-          :key="service.id"
-          :service="service"
-        />
-      </div>
-
-      <!-- Buttons for going next and previos-->
-      <div class="service-catalog__pagination">
-        <img
-          v-if="currentPage === 0"
-          src="@/assets/disabled-black.svg"
-          alt="arrow-left"
-        />
-        <img
-          v-else
-          @click="currentPage -= 1"
-          src="@/assets/enabled-back.svg"
-          alt="arrow-left"
-        />
-        <!-- </button> -->
-        <!-- TODO:sid lets see if you can optimise bottom -->
-        <!-- TODO: if only one element do we change the message ?-->
-        <span class="service-catalog__pagination-title">
-          <span
-            :style="{
-              fontWeight: 600,
-              color: '#3c4557',
-            }"
-          >
-            {{
-              `${currentPage * 9 + 1} to ${
-                currentPage * 9 + 9 > services.length
-                  ? chunkedServices[currentPage].length + currentPage * 9
-                  : currentPage * 9 + 9
-              }`
-            }}
+        <!-- Buttons for going next and previos-->
+        <div class="service-catalog__pagination">
+          <img
+            v-if="currentPage === 0"
+            src="@/assets/disabled-black.svg"
+            alt="arrow-left"
+          />
+          <img
+            v-else
+            @click="currentPage -= 1"
+            src="@/assets/enabled-back.svg"
+            alt="arrow-left"
+          />
+          <!-- </button> -->
+          <!-- TODO:sid lets see if you can optimise bottom -->
+          <!-- TODO: if only one element do we change the message ?-->
+          <span class="service-catalog__pagination-title">
+            <span
+              :style="{
+                fontWeight: 600,
+                color: '#3c4557',
+              }"
+            >
+              {{
+                `${currentPage * 9 + 1} to ${
+                  currentPage * 9 + 9 > services.length
+                    ? chunkedServices[currentPage].length + currentPage * 9
+                    : currentPage * 9 + 9
+                }`
+              }}
+            </span>
+            {{ `of ${services.length} services` }}
           </span>
-          {{ `of ${services.length} services` }}
-        </span>
-        <img
-          v-if="currentPage === totalPages - 1"
-          src="@/assets/disabled-forward.svg"
-          alt="arrow-left"
-        />
-        <img
-          v-else
-          @click="currentPage += 1"
-          src="@/assets/enabled-forward.svg"
-          alt="arrow-left"
-        />
+          <img
+            v-if="currentPage === totalPages - 1"
+            src="@/assets/disabled-forward.svg"
+            alt="arrow-left"
+          />
+          <img
+            v-else
+            @click="currentPage += 1"
+            src="@/assets/enabled-forward.svg"
+            alt="arrow-left"
+          />
+        </div>
       </div>
+      <div v-else data-testid="no-results">No services</div>
     </div>
-    <div v-else data-testid="no-results">No services</div>
   </div>
   <CreateServiceModal
     v-if="isCreateServiceModalVisible"
@@ -162,10 +171,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.service-catalog-page {
+  background-color: #efefef;
+  display: flex;
+  justify-content: center;
+}
 .service-catalog {
   background-color: #efefef;
   padding: 20px;
-  max-width: 140rem;
 }
 
 .service-catalog__header {
@@ -180,7 +193,7 @@ export default defineComponent({
   // 3 products per row
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  row-gap: 1.2rem;
+  gap: 1.2rem;
   // for tablet view
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
