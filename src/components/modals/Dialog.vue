@@ -37,6 +37,12 @@ defineEmits(["onClose"]);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-width: 24rem;
   border-radius: 1.2rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 60%;
+    border-radius: 0;
+  }
 }
 
 .dialog__header {

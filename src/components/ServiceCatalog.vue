@@ -7,12 +7,14 @@
           <span class="service-catalog__sub-title"
             >Organize services, manage and track versioning and API service
             documentation.
-            <span class="service-catalog__sub-title--link"
+            <span
+              class="service-catalog__sub-title--link"
+              @click="onLearnMoreClick"
               >Learn more</span
             ></span
           >
         </div>
-        <div :style="{ display: 'flex' }">
+        <div class="service-catalog__right-section">
           <div class="service-catalog__search-input">
             <img
               src="@/assets/search.svg"
@@ -148,6 +150,9 @@ export default defineComponent({
     };
 
     const debouncedGetServices = debounce(getServices);
+    const onLearnMoreClick = () => {
+      window.open("https://konghq.com/products/kong-konnect", "_blank");
+    };
 
     const searchQuery = ref("");
     const isCreateServiceModalVisible = ref(false);
@@ -165,6 +170,7 @@ export default defineComponent({
       currentPage,
       totalPages,
       isCreateServiceModalVisible,
+      onLearnMoreClick,
     };
   },
 });
@@ -186,6 +192,20 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.service-catalog__right-section {
+  display: flex;
+
+  //for mobile
+  @media (max-width: 1024px) {
+    margin-top: 1.6rem;
+  }
 }
 
 .service-catalog__cards-container {

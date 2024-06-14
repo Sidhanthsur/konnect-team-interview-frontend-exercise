@@ -77,6 +77,17 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
   width: 42.6rem;
   height: 23.2rem;
   cursor: pointer;
+
+  // for tablet
+  @media (max-width: 1024px) {
+    width: 35.6rem;
+    height: 19.72rem;
+  }
+
+  // for mobile
+  @media (max-width: 768px) {
+    width: 32.04rem;
+  }
 }
 
 .service-catalog-product__top-header {
