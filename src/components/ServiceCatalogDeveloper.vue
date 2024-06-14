@@ -49,6 +49,7 @@ watchEffect(() => {
         :style="{
           position: 'relative',
         }"
+        class="service-catalog-developer__avatar-container"
       >
         <div
           class="service-catalog-developer__avatars service-catalog-developer__avatars--plus"
@@ -86,11 +87,12 @@ watchEffect(() => {
   display: flex;
 }
 .service-catalog-developer__avatars {
-  width: 36px;
-  height: 36px;
+  width: 3.6rem;
+  height: 3.6rem;
   border-radius: 50%;
   background: rgba(241, 241, 248, 1);
   margin-left: -14px;
+  position: relative;
 }
 
 .service-catalog-developer__avatars--plus {
@@ -100,14 +102,18 @@ watchEffect(() => {
   align-items: center;
   font-size: 12px;
   font-weight: 600;
+  position: relative;
 }
 
-.service-catalog-developer__avatars:nth-child(1) {
-  z-index: 2;
-}
+.service-catalog-developer__avatar-container {
+  position: relative;
 
-.service-catalog-developer__avatars:nth-child(2) {
-  z-index: 1;
+  &:nth-child(1) {
+    z-index: 2;
+  }
+  &:nth-child(2) {
+    z-index: 1;
+  }
 }
 
 .service-catalog-developer__avatars--plus {
@@ -116,24 +122,11 @@ watchEffect(() => {
 
 .service-catalog-developer__avatars-hover {
   position: absolute;
-  top: -3rem;
+  top: -3.6rem;
   font-size: 8px;
   padding: 0.4rem;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
   right: 15%;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    border: solid transparent;
-    height: 0;
-    width: 0;
-    border-width: 6px;
-    margin-left: -6px;
-    border-top-color: rgba(0, 0, 0, 0.5);
-  }
 }
 </style>
