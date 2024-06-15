@@ -26,6 +26,10 @@ const uniqueDevelopers = computed(() => {
 })
 
 const setVersionsInServiceDetailsStore = (service: Service) => {
+  if (!service.versions.length) {
+    alert('No versions available for this service')
+    return
+  }
   const serviceDetailsStore = useServiceDetailsStore()
   serviceDetailsStore.versions = service.versions
   router.push({ name: 'serviceDetails' })
