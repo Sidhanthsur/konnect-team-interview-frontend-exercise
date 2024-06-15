@@ -13,7 +13,7 @@ const DeveloperDetailsModal = defineAsyncComponent(
 
 const props = defineProps<{ service: Service }>()
 
-const serviceDetailsStore = useServiceDetailsStore()
+
 const router = useRouter()
 const isDeveloperModalVisible = ref(false)
 const uniqueDevelopers = computed(() => {
@@ -27,6 +27,7 @@ const uniqueDevelopers = computed(() => {
 })
 
 const setVersionsInServiceDetailsStore = (service: Service) => {
+  const serviceDetailsStore = useServiceDetailsStore()
   serviceDetailsStore.versions = service.versions
   router.push({ name: 'serviceDetails' })
 }
