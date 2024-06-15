@@ -42,7 +42,10 @@
         </div>
       </div>
 
-      <div v-if="loading">
+      <div
+        v-if="loading"
+        data-testid="loading"
+      >
         <div>Loading...</div>
       </div>
 

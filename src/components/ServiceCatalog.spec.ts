@@ -39,6 +39,6 @@ describe('ServiceCatalog', () => {
 
     const wrapper = mount(ServiceCatalog)
 
-    expect(wrapper.findTestId('no-results').isVisible()).toBe(true)
+    expect(wrapper.findTestId('loading').isVisible()).toBe(true)
   })
 })
