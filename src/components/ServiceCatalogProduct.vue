@@ -93,7 +93,7 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
 <style lang="scss" scoped>
 .service-catalog-product__card {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 0.8rem;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -118,35 +118,35 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
 .service-catalog-product__top-header {
   align-items: center;
   display: flex;
-  height: 33px;
+  height: 3.3rem;
   justify-content: space-between;
 }
 
 .service-catalog-product__version {
   align-items: center;
   background: rgba(242, 246, 254, 1);
-  border-radius: 16px;
+  border-radius: 1.6rem;
   color: rgba(88, 136, 219, 1);
   cursor: pointer;
   display: flex;
-  font-size: 13px;
-  height: 33px;
+  font-size: 1.3rem;
+  height: 3.3rem;
   justify-content: center;
-  width: 88px;
+  width: 8.8rem;
 }
 
 .service-catalog-product__name {
   color: rgba(60, 69, 87, 1);
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 500;
-  margin-top: 12px;
+  margin-top: 1.2rem;
 }
 
 .service-catalog-product__description {
   color: rgba(112, 120, 136, 1);
-  font-size: 13px;
+  font-size: 1.3rem;
   font-weight: 400;
-  margin-top: 8px;
+  margin-top: 0.8rem;
 }
 
 .service-catalog-product__bottom {

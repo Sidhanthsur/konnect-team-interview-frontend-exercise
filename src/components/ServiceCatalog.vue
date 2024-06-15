@@ -203,7 +203,7 @@ export default defineComponent({
 }
 .service-catalog {
   background-color: #efefef;
-  padding: 20px;
+  padding: 2rem;
 }
 
 .service-catalog__header {

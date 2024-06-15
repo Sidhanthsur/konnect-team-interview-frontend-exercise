@@ -35,8 +35,8 @@ defineProps<{ published: boolean }>()
 }
 .service-catalog-publish-status__title {
   color: rgba(60, 69, 87, 0.7);
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 400;
-  margin-left: 5px;
+  margin-left: 0.5rem;
 }
 </style>

@@ -80,7 +80,7 @@ watchEffect(() => {
   background: rgba(241, 241, 248, 1);
   border-radius: 50%;
   height: 3.6rem;
-  margin-left: -14px;
+  margin-left: -1.4rem;
   position: relative;
   width: 3.6rem;
 }
@@ -90,7 +90,7 @@ watchEffect(() => {
   border: 1px solid white;
   color: rgba(119, 125, 138, 1);
   display: flex;
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 600;
   justify-content: center;
   position: relative;
@@ -110,7 +110,7 @@ watchEffect(() => {
 .service-catalog-developer__avatars-hover {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
-  font-size: 8px;
+  font-size: 0.8rem;
   padding: 0.4rem;
   position: absolute;
   right: 15%;

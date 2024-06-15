@@ -47,7 +47,7 @@ li::marker {
 
 ul {
   color: rgba(60, 69, 87, 1);
-  font-size: 12px;
+  font-size: 1.2rem;
   padding-left: 1.6rem;
 }
 
@@ -62,7 +62,7 @@ ul {
 
 .service-catalog-runtime-log__log {
   color: rgba(112, 120, 136, 1);
-  font-size: 12px;
+  font-size: 1.2rem;
   font-weight: 600;
 }
 
