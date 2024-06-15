@@ -4,37 +4,39 @@
       <div class="service-catalog__header">
         <div>
           <h1>Service Hub</h1>
-          <span class="service-catalog__sub-title"
-            >Organize services, manage and track versioning and API service
+          <span class="service-catalog__sub-title">Organize services, manage and track versioning and API service
             documentation.
             <span
               class="service-catalog__sub-title--link"
               @click="onLearnMoreClick"
-              >Learn more</span
-            ></span
-          >
+            >Learn more</span></span>
         </div>
         <div class="service-catalog__right-section">
           <div class="service-catalog__search-input">
             <img
-              src="@/assets/search.svg"
               alt="search"
-              width="20"
               height="20"
-            />
+              src="@/assets/search.svg"
+              width="20"
+            >
             <input
-              class="service-catalog__search-input-box"
               v-model="searchQuery"
+              class="service-catalog__search-input-box"
               data-testid="search-input"
               placeholder="Search services"
-            />
+            >
           </div>
 
           <button
-            @click="isCreateServiceModalVisible = true"
             class="service-catalog__create-service"
+            @click="isCreateServiceModalVisible = true"
           >
-            <img src="@/assets/plus.svg" alt="plus" width="20" height="20" />
+            <img
+              alt="plus"
+              height="20"
+              src="@/assets/plus.svg"
+              width="20"
+            >
             <span>Service Package</span>
           </button>
         </div>
@@ -53,15 +55,15 @@
         <div class="service-catalog__pagination">
           <img
             v-if="currentPage === 0"
-            src="@/assets/disabled-black.svg"
             alt="arrow-left"
-          />
+            src="@/assets/disabled-black.svg"
+          >
           <img
             v-else
-            @click="currentPage -= 1"
-            src="@/assets/enabled-back.svg"
             alt="arrow-left"
-          />
+            src="@/assets/enabled-back.svg"
+            @click="currentPage -= 1"
+          >
           <!-- </button> -->
           <!-- TODO:sid lets see if you can optimise bottom -->
           <!-- TODO: if only one element do we change the message ?-->
@@ -84,23 +86,28 @@
           </span>
           <img
             v-if="currentPage === totalPages - 1"
-            src="@/assets/disabled-forward.svg"
             alt="arrow-left"
-          />
+            src="@/assets/disabled-forward.svg"
+          >
           <img
             v-else
-            @click="currentPage += 1"
-            src="@/assets/enabled-forward.svg"
             alt="arrow-left"
-          />
+            src="@/assets/enabled-forward.svg"
+            @click="currentPage += 1"
+          >
         </div>
       </div>
-      <div v-else data-testid="no-results">No services</div>
+      <div
+        v-else
+        data-testid="no-results"
+      >
+        No services
+      </div>
     </div>
   </div>
   <CreateServiceModal
     v-if="isCreateServiceModalVisible"
-    @onClose="isCreateServiceModalVisible = false"
+    @on-close="isCreateServiceModalVisible = false"
   />
 </template>
 
@@ -108,20 +115,18 @@
 import {
   defineComponent,
   ref,
-  computed,
   watch,
-  watchEffect,
   defineAsyncComponent,
-} from "vue";
-import useServices from "@/composables/useServices";
-import ServiceCatalogProduct from "@/components/ServiceCatalogProduct.vue";
+} from 'vue'
+import useServices from '@/composables/useServices'
+import ServiceCatalogProduct from '@/components/ServiceCatalogProduct.vue'
 
 const CreateServiceModal = defineAsyncComponent(
-  () => import("@/components/modals/CreateServiceModal.vue")
-);
+  () => import('@/components/modals/CreateServiceModal.vue'),
+)
 
 export default defineComponent({
-  name: "ServiceCatalog",
+  name: 'ServiceCatalog',
   components: {
     ServiceCatalogProduct,
     CreateServiceModal,
@@ -135,32 +140,32 @@ export default defineComponent({
       currentPage,
       totalPages,
       getServices,
-    } = useServices();
+    } = useServices()
 
-    const debounce = (fn: Function) => {
-      let timeoutId: ReturnType<typeof setTimeout>;
-      return function (query?: string) {
+    const debounce = (fn: (...args: any[]) => any) => {
+      let timeoutId: ReturnType<typeof setTimeout>
+      return function(query?: string) {
         if (timeoutId) {
-          clearTimeout(timeoutId);
+          clearTimeout(timeoutId)
         }
         timeoutId = setTimeout(() => {
-          fn(query);
-        }, 1000);
-      };
-    };
+          fn(query)
+        }, 1000)
+      }
+    }
 
-    const debouncedGetServices = debounce(getServices);
+    const debouncedGetServices = debounce(getServices)
     const onLearnMoreClick = () => {
-      window.open("https://konghq.com/products/kong-konnect", "_blank");
-    };
+      window.open('https://konghq.com/products/kong-konnect', '_blank')
+    }
 
-    const searchQuery = ref("");
-    const isCreateServiceModalVisible = ref(false);
+    const searchQuery = ref('')
+    const isCreateServiceModalVisible = ref(false)
 
     // Watch for changes in the search string
     watch(searchQuery, () => {
-      debouncedGetServices(searchQuery.value);
-    });
+      debouncedGetServices(searchQuery.value)
+    })
 
     return {
       services,
@@ -171,9 +176,9 @@ export default defineComponent({
       totalPages,
       isCreateServiceModalVisible,
       onLearnMoreClick,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss" scoped>

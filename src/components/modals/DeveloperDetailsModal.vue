@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { type Developer } from "@/constants/serviceTypes";
-import Dialog from "@/components/modals/Dialog.vue";
-const props = defineProps<{ developers: Developer[] }>();
-defineEmits(["onClose"]);
+import { type Developer } from '@/constants/serviceTypes'
+import Dialog from '@/components/modals/DialogComponent.vue'
+const props = defineProps<{ developers: Developer[] }>()
+defineEmits(['onClose'])
 </script>
 
 <template>
-  <Dialog @onClose="$emit('onClose')" title="Developers">
+  <Dialog
+    title="Developers"
+    @on-close="$emit('onClose')"
+  >
     <div class="service-catalog-developer">
-      <template v-for="{ avatar, name } in props.developers">
+      <template
+        v-for="{ avatar, name, id } in props.developers"
+        :key="id"
+      >
         <div class="developer-details-modal__content">
           <img
+            :alt="name"
             class="service-catalog-developer__avatars"
             :src="avatar"
-            :alt="name"
-          />
+          >
           <div>{{ name }}</div>
         </div>
       </template>

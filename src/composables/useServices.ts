@@ -24,7 +24,7 @@ export default function useServices(): any {
 
       // Store data in Vue ref
       services.value = data
-      // chunk services into groups of 9 
+      // chunk services into groups of 9
       // to display 9 services per page
       chunkedServices.value = services.value.reduce((resultArray: any, item: any, index: number) => {
         const chunkIndex = Math.floor(index / 9)
@@ -62,6 +62,6 @@ export default function useServices(): any {
     currentPage,
     totalPages,
     lastPage,
-    getServices
+    getServices,
   }
 }

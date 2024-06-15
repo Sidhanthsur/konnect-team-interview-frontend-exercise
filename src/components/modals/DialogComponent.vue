@@ -1,15 +1,20 @@
 <script setup lang="ts">
-defineProps<{ title: string }>();
-defineEmits(["onClose"]);
+defineProps<{ title: string }>()
+defineEmits(['onClose'])
 </script>
 <template>
   <div class="dialog">
     <div class="dialog__content">
       <div class="dialog__header">
         <h4>{{ title }}</h4>
-        <button class="dialog__close" @click="$emit('onClose')">X</button>
+        <button
+          class="dialog__close"
+          @click="$emit('onClose')"
+        >
+          X
+        </button>
       </div>
-      <slot></slot>
+      <slot />
     </div>
   </div>
 </template>

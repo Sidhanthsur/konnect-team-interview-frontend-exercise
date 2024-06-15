@@ -2,7 +2,10 @@
   <header>
     <div class="nav-bar">
       <router-link to="/">
-        <img src="@/assets/logo.svg" alt="Kong logo" />
+        <img
+          alt="Kong logo"
+          src="@/assets/logo.svg"
+        >
       </router-link>
     </div>
   </header>
@@ -12,11 +15,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "App",
-});
+  name: 'App',
+})
 </script>
 
 <style lang="scss" scoped>

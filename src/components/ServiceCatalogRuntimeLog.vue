@@ -1,29 +1,26 @@
 <script setup lang="ts">
-import { type Metrics } from "@/constants/serviceTypes";
-defineProps<{ metrics: Metrics }>();
+import { type Metrics } from '@/constants/serviceTypes'
+defineProps<{ metrics: Metrics }>()
 
 const formatRequests = (requests: number) => {
   if (requests > 1000000) {
-    return `${Math.round(requests / 1000000)}m`;
+    return `${Math.round(requests / 1000000)}m`
   } else if (requests > 1000) {
-    return `${Math.round(requests / 1000)}k`;
+    return `${Math.round(requests / 1000)}k`
   }
-  return requests;
-};
+  return requests
+}
 </script>
 
 <template>
   <ul class="service-catalog-runtime-log__log">
     <template v-if="metrics">
       <li>
-        <span class="service-catalog-runtime-log__log-value"
-          >{{ metrics.latency }}ms</span
-        >
+        <span class="service-catalog-runtime-log__log-value">{{ metrics.latency }}ms</span>
         latency
       </li>
       <li>
-        <span class="service-catalog-runtime-log__log-value"
-          >{{ (metrics.uptime * 100).toFixed(2) }}%
+        <span class="service-catalog-runtime-log__log-value">{{ (metrics.uptime * 100).toFixed(2) }}%
         </span>
         uptime
       </li>
@@ -32,16 +29,15 @@ const formatRequests = (requests: number) => {
           formatRequests(metrics.requests)
         }}</span>
         requests
-        <span v-if="metrics.errors"
-          >·
-          <span class="service-catalog-runtime-log__log-value"
-            >{{ metrics.errors.toFixed(2) }}%</span
-          >
+        <span v-if="metrics.errors">·
+          <span class="service-catalog-runtime-log__log-value">{{ metrics.errors.toFixed(2) }}%</span>
           errors
         </span>
       </li>
     </template>
-    <li v-else>Not configured with runtime yet</li>
+    <li v-else>
+      Not configured with runtime yet
+    </li>
   </ul>
 </template>
 <style scoped>

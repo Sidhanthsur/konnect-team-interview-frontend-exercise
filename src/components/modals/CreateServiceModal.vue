@@ -1,24 +1,43 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import Dialog from "@/components/modals/Dialog.vue";
-defineEmits(["onClose"]);
+import Dialog from '@/components/modals/DialogComponent.vue'
+defineEmits(['onClose'])
 </script>
 
 <template>
-  <Dialog @onClose="$emit('onClose')" title="Create a new service">
+  <Dialog
+    title="Create a new service"
+    @on-close="$emit('onClose')"
+  >
     <div class="create-service-modal">
-      <label class="create-service-modal__label" for="name">Name</label>
-      <input type="text" id="name" />
-
-      <label class="create-service-modal__label" for="description"
-        >Description</label
+      <label
+        class="create-service-modal__label"
+        for="name"
       >
-      <textarea id="description"></textarea>
+        Name
+      </label>
+      <input
+        id="name"
+        type="text"
+      >
 
-      <button @click="$emit('onClose')" class="create-service-modal__button">
+      <label
+        class="create-service-modal__label"
+        for="description"
+      >
+        Description
+      </label>
+      <textarea id="description" />
+
+      <button
+        class="create-service-modal__button"
+        @click="$emit('onClose')"
+      >
         Create
       </button>
-      <button @click="$emit('onClose')" class="create-service-modal__button">
+      <button
+        class="create-service-modal__button"
+        @click="$emit('onClose')"
+      >
         Cancel
       </button>
     </div>

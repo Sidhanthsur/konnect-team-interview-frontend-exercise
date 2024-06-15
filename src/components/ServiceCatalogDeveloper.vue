@@ -1,34 +1,34 @@
 <script setup lang="ts">
-import { computed, watchEffect, ref } from "vue";
-import { type Developer, type Version } from "@/constants/serviceTypes";
+import { computed, watchEffect, ref } from 'vue'
+import { type Developer, type Version } from '@/constants/serviceTypes'
 
-const emit = defineEmits<{ onDeveloperClicked: [Event] }>();
+const emit = defineEmits<{ onDeveloperClicked: [Event] }>()
 const props = defineProps<{
   versions: Version[];
   uniqueDevelopers: Developer[];
-}>();
+}>()
 
 const getDevelopers = computed(() => {
-  const developers = [...props.uniqueDevelopers];
+  const developers = [...props.uniqueDevelopers]
 
   if (developers.length > 3) {
-    developers.splice(2);
-    developers.push({ avatar: "+", name: "", id: "", email: "" });
-    return developers.reverse();
+    developers.splice(2)
+    developers.push({ avatar: '+', name: '', id: '', email: '' })
+    return developers.reverse()
   }
-  return developers;
-});
+  return developers
+})
 
-const imageReferences = ref<Record<string, boolean>>({});
+const imageReferences = ref<Record<string, boolean>>({})
 
 // add id of developer as key with a boolean value
 watchEffect(() => {
   getDevelopers.value.forEach((developer) => {
-    if (developer.avatar !== "+") {
-      imageReferences.value[developer.id] = false;
+    if (developer.avatar !== '+') {
+      imageReferences.value[developer.id] = false
     }
-  });
-});
+  })
+})
 </script>
 
 <template>
@@ -36,31 +36,34 @@ watchEffect(() => {
     class="service-catalog-developer"
     @click="emit('onDeveloperClicked', $event)"
   >
-    <template v-for="{ avatar, name, id } in getDevelopers">
+    <template
+      v-for="{ avatar, name, id } in getDevelopers"
+      :key="id"
+    >
       <div
+        class="service-catalog-developer__avatar-container"
         :style="{
           position: 'relative',
         }"
-        class="service-catalog-developer__avatar-container"
       >
         <div
-          class="service-catalog-developer__avatars service-catalog-developer__avatars--plus"
           v-if="avatar === '+'"
+          class="service-catalog-developer__avatars service-catalog-developer__avatars--plus"
         >
           + {{ uniqueDevelopers.length - 2 }}
         </div>
         <img
           v-else-if="avatar"
+          :id="id"
+          :alt="name"
           class="service-catalog-developer__avatars"
           :src="avatar"
-          :alt="name"
-          :id="id"
-          @mouseover="imageReferences[id] = true"
           @mouseleave="imageReferences[id] = false"
-        />
+          @mouseover="imageReferences[id] = true"
+        >
         <div
-          class="service-catalog-developer__avatars-hover"
           v-if="imageReferences[id]"
+          class="service-catalog-developer__avatars-hover"
         >
           {{ name }}
         </div>

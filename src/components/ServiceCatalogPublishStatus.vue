@@ -1,21 +1,31 @@
 <script setup lang="ts">
-import tickImage from "@/assets/tick.svg";
-import crossImage from "@/assets/cross.svg";
+import tickImage from '@/assets/tick.svg'
+import crossImage from '@/assets/cross.svg'
 
-defineProps<{ published: Boolean }>();
+defineProps<{ published: boolean }>()
 </script>
 <template>
   <div class="">
     <!-- Published status -->
-    <div v-if="published" class="service-catalog-publish-status__container">
-      <img :src="tickImage" alt="Tick" />
-      <span class="service-catalog-publish-status__title"
-        >Published to portal</span
+    <div
+      v-if="published"
+      class="service-catalog-publish-status__container"
+    >
+      <img
+        alt="Tick"
+        :src="tickImage"
       >
+      <span class="service-catalog-publish-status__title">Published to portal</span>
     </div>
 
-    <div v-else class="service-catalog-publish-status__container">
-      <img :src="crossImage" alt="Tick" />
+    <div
+      v-else
+      class="service-catalog-publish-status__container"
+    >
+      <img
+        alt="Tick"
+        :src="crossImage"
+      >
       <span class="service-catalog-publish-status__title">Unpublished</span>
     </div>
   </div>

@@ -1,35 +1,35 @@
 <script setup lang="ts">
-import { type Service } from "@/constants/serviceTypes";
-import ServiceCatalogPublishStatus from "@/components/ServiceCatalogPublishStatus.vue";
-import ServiceCatalogRuntimeLog from "@/components/ServiceCatalogRuntimeLog.vue";
-import ServiceCatalogDeveloper from "@/components/ServiceCatalogDeveloper.vue";
-import { useServiceDetailsStore } from "@/stores/serviceDetails";
-import { useRouter } from "vue-router";
-import { computed, defineProps, ref, defineAsyncComponent } from "vue";
+import { type Service } from '@/constants/serviceTypes'
+import ServiceCatalogPublishStatus from '@/components/ServiceCatalogPublishStatus.vue'
+import ServiceCatalogRuntimeLog from '@/components/ServiceCatalogRuntimeLog.vue'
+import ServiceCatalogDeveloper from '@/components/ServiceCatalogDeveloper.vue'
+import { useServiceDetailsStore } from '@/stores/serviceDetails'
+import { useRouter } from 'vue-router'
+import { computed, defineProps, ref, defineAsyncComponent } from 'vue'
 
 const DeveloperDetailsModal = defineAsyncComponent(
-  () => import("@/components/modals/DeveloperDetailsModal.vue")
-);
+  () => import('@/components/modals/DeveloperDetailsModal.vue'),
+)
 
-const props = defineProps<{ service: Service }>();
+const props = defineProps<{ service: Service }>()
 
-const serviceDetailsStore = useServiceDetailsStore();
-const router = useRouter();
-const isDeveloperModalVisible = ref(false);
+const serviceDetailsStore = useServiceDetailsStore()
+const router = useRouter()
+const isDeveloperModalVisible = ref(false)
 const uniqueDevelopers = computed(() => {
   return props.service.versions
     .filter((version) => version.developer)
     .map((version) => version.developer)
     .filter(
       (developer, index, self) =>
-        index === self.findIndex((t) => t.id === developer.id)
-    );
-});
+        index === self.findIndex((t) => t.id === developer.id),
+    )
+})
 
 const setVersionsInServiceDetailsStore = (service: Service) => {
-  serviceDetailsStore.versions = service.versions;
-  router.push({ name: "serviceDetails" });
-};
+  serviceDetailsStore.versions = service.versions
+  router.push({ name: 'serviceDetails' })
+}
 </script>
 
 <template>
@@ -47,8 +47,8 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
         <ServiceCatalogPublishStatus :published="service.published" />
         <!--Version-->
         <div
-          class="service-catalog-product__version"
           v-if="service?.versions?.length"
+          class="service-catalog-product__version"
         >
           <p>
             {{
@@ -61,7 +61,9 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
       </div>
 
       <!--Name-->
-      <div class="service-catalog-product__name">{{ service.name }}</div>
+      <div class="service-catalog-product__name">
+        {{ service.name }}
+      </div>
       <!--Description-->
       <div class="service-catalog-product__description">
         {{ service.description }}
@@ -74,9 +76,9 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
       <ServiceCatalogRuntimeLog :metrics="service.metrics" />
       <ServiceCatalogDeveloper
         v-if="service.versions.length"
+        :unique-developers="uniqueDevelopers"
         :versions="service.versions"
-        :uniqueDevelopers="uniqueDevelopers"
-        @onDeveloperClicked="
+        @on-developer-clicked="
           (event) => {
             event.stopPropagation();
             isDeveloperModalVisible = true;
@@ -88,7 +90,7 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
   <DeveloperDetailsModal
     v-if="isDeveloperModalVisible"
     :developers="uniqueDevelopers"
-    @onClose="isDeveloperModalVisible = false"
+    @on-close="isDeveloperModalVisible = false"
   />
 </template>
 

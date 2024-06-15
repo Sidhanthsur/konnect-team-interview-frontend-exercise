@@ -1,77 +1,85 @@
 <script setup lang="ts">
-import { useServiceDetailsStore } from "@/stores/serviceDetails";
-import { onMounted, onUnmounted } from "vue";
-import { useRouter } from "vue-router";
-const serviceDetailsStore = useServiceDetailsStore();
-const router = useRouter();
-const versions = serviceDetailsStore.versions;
+import { useServiceDetailsStore } from '@/stores/serviceDetails'
+import { onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
+const serviceDetailsStore = useServiceDetailsStore()
+const router = useRouter()
+const versions = serviceDetailsStore.versions
 
 onMounted(() => {
   if (!serviceDetailsStore.versions.length) {
-    router.push({ name: "home" });
+    router.push({ name: 'home' })
   }
-});
+})
 
 function timeDifference(previous: Date) {
-  let current = +new Date();
-  let msPerMinute = 60 * 1000;
-  let msPerHour = msPerMinute * 60;
-  let msPerDay = msPerHour * 24;
-  let msPerMonth = msPerDay * 30;
-  let msPerYear = msPerDay * 365;
+  let current = +new Date()
+  let msPerMinute = 60 * 1000
+  let msPerHour = msPerMinute * 60
+  let msPerDay = msPerHour * 24
+  let msPerMonth = msPerDay * 30
+  let msPerYear = msPerDay * 365
 
-  let elapsed = current - +previous;
+  let elapsed = current - +previous
 
   if (elapsed < msPerMinute) {
-    let value = Math.round(elapsed / 1000);
-    return value + ` ${value > 1 ? "seconds" : "second"} ago`;
+    let value = Math.round(elapsed / 1000)
+    return value + ` ${value > 1 ? 'seconds' : 'second'} ago`
   } else if (elapsed < msPerHour) {
-    let value = Math.round(elapsed / msPerMinute);
-    return value + ` ${value > 1 ? "minutes" : "minute"} ago`;
+    let value = Math.round(elapsed / msPerMinute)
+    return value + ` ${value > 1 ? 'minutes' : 'minute'} ago`
   } else if (elapsed < msPerDay) {
-    let value = Math.round(elapsed / msPerHour);
-    return value + ` ${value > 1 ? "hours" : "hour"} ago`;
+    let value = Math.round(elapsed / msPerHour)
+    return value + ` ${value > 1 ? 'hours' : 'hour'} ago`
   } else if (elapsed < msPerMonth) {
-    let value = Math.round(elapsed / msPerDay);
-    return value + ` ${value > 1 ? "days" : "day"} ago`;
+    let value = Math.round(elapsed / msPerDay)
+    return value + ` ${value > 1 ? 'days' : 'day'} ago`
   } else if (elapsed < msPerYear) {
-    let value = Math.round(elapsed / msPerMonth);
-    return value + ` ${value > 1 ? "months" : "month"} ago`;
+    let value = Math.round(elapsed / msPerMonth)
+    return value + ` ${value > 1 ? 'months' : 'month'} ago`
   } else {
-    let value = Math.round(elapsed / msPerYear);
-    return value + ` ${value > 1 ? "years" : "year"} ago`;
+    let value = Math.round(elapsed / msPerYear)
+    return value + ` ${value > 1 ? 'years' : 'year'} ago`
   }
 }
 
 onUnmounted(() => {
-  serviceDetailsStore.resetVersions();
-});
+  serviceDetailsStore.resetVersions()
+})
 </script>
 <template>
   <div class="service-details">
-    <router-link class="service-details__back" to="/">← Go Back</router-link>
+    <router-link
+      class="service-details__back"
+      to="/"
+    >
+      ← Go Back
+    </router-link>
     <div class="service-details__card">
-      <h2 class="service-details__title">Versions ({{ versions.length }})</h2>
+      <h2 class="service-details__title">
+        Versions ({{ versions.length }})
+      </h2>
       <ul class="service-details__versions-list">
         <li
           v-for="version in versions"
           :key="version.id"
           class="service-details__version"
         >
-          <div class="service-details__detail-name">v{{ version.name }}</div>
+          <div class="service-details__detail-name">
+            v{{ version.name }}
+          </div>
           <div class="service-details__detail-description">
             {{ version.description }}
           </div>
           <div>
             <span class="service-details__http-tag">HTTP</span>
             <span
+              class="service-details__http-tag"
               :style="{
                 background: '#BDD3F9',
                 marginLeft: '0.5rem',
               }"
-              class="service-details__http-tag"
-              >REST</span
-            >
+            >REST</span>
           </div>
 
           <div
@@ -82,16 +90,15 @@ onUnmounted(() => {
           >
             <img
               v-if="version.developer"
-              :src="version.developer.avatar"
               :alt="version.developer.name"
               class="service-details__developer-avatar"
-            />
+              :src="version.developer.avatar"
+            >
             <div>
               <span
                 v-if="version.developer"
                 class="service-details__developer-name"
-                >{{ version.developer.name }}</span
-              >
+              >{{ version.developer.name }}</span>
               <!-- Show the updated relative from today like 2 days ago etc-->
               <div class="service-details__updated-at">
                 {{ timeDifference(new Date(version.updated_at)) }}
