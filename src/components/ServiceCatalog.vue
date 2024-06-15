@@ -64,17 +64,16 @@
 
         <!-- Buttons for going next and previous-->
         <div class="service-catalog__pagination">
-          <img
-            v-if="currentPage === 0"
-            alt="arrow-left"
-            src="@/assets/disabled-black.svg"
-          >
-          <img
-            v-else
-            alt="arrow-left"
-            src="@/assets/enabled-back.svg"
+          <button
+            class="service-catalog__pagination-button"
+            :disabled="currentPage === 0"
             @click="currentPage -= 1"
           >
+            <img
+              alt="arrow-left"
+              :src="currentPage === 0 ? LeftArrowDisabled : LeftArrowEnabled"
+            >
+          </button>
 
           <span class="service-catalog__pagination-title">
             <span
@@ -87,17 +86,20 @@
             </span>
             {{ `of ${services.length} services` }}
           </span>
-          <img
-            v-if="currentPage === totalPages - 1"
-            alt="arrow-left"
-            src="@/assets/disabled-forward.svg"
-          >
-          <img
-            v-else
-            alt="arrow-left"
-            src="@/assets/enabled-forward.svg"
+          <button
+            class="service-catalog__pagination-button"
+            :disabled="currentPage === totalPages - 1"
             @click="currentPage += 1"
           >
+            <img
+              alt="arrow-right"
+              :src="
+                currentPage === totalPages - 1
+                  ? RightArrowDisabled
+                  : RightArrowEnabled
+              "
+            >
+          </button>
         </div>
       </div>
       <div
@@ -124,6 +126,10 @@ import {
 } from 'vue'
 import useServices from '@/composables/useServices'
 import ServiceCatalogProduct from '@/components/ServiceCatalogProduct.vue'
+import RightArrowEnabled from '@/assets/enabled-forward.svg'
+import RightArrowDisabled from '@/assets/disabled-forward.svg'
+import LeftArrowEnabled from '@/assets/enabled-back.svg'
+import LeftArrowDisabled from '@/assets/disabled-back.svg'
 
 const CreateServiceModal = defineAsyncComponent(
   () => import('@/components/modals/CreateServiceModal.vue'),
@@ -193,6 +199,10 @@ export default defineComponent({
       onLearnMoreClick,
       error,
       paginatedDisplayInfo,
+      RightArrowEnabled,
+      RightArrowDisabled,
+      LeftArrowEnabled,
+      LeftArrowDisabled,
     }
   },
 })
@@ -277,6 +287,12 @@ export default defineComponent({
   &:focus {
     outline: none;
   }
+}
+
+.service-catalog__pagination-button {
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .service-catalog__create-service {
