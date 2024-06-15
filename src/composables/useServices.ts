@@ -18,6 +18,7 @@ export default function useServices(): any {
     try {
       // Initialize loading state
       loading.value = true
+      error.value = false
 
       // Fetch data from the API
       const { data } = await axios.get(`/api/services${search ? `?q=${search}` : ''}`)
