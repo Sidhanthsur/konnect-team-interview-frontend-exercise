@@ -42,7 +42,15 @@
         </div>
       </div>
 
-      <div v-if="chunkedServices[currentPage]?.length">
+      <div v-if="loading">
+        <div>Loading...</div>
+      </div>
+
+      <div v-else-if="error">
+        <div>Oops something went wrong !</div>
+      </div>
+
+      <div v-else-if="chunkedServices[currentPage]?.length">
         <div class="service-catalog__cards-container">
           <ServiceCatalogProduct
             v-for="service in chunkedServices[currentPage]"
@@ -64,9 +72,7 @@
             src="@/assets/enabled-back.svg"
             @click="currentPage -= 1"
           >
-          <!-- </button> -->
-          <!-- TODO:sid lets see if you can optimise bottom -->
-          <!-- TODO: if only one element do we change the message ?-->
+
           <span class="service-catalog__pagination-title">
             <span
               :style="{
@@ -74,13 +80,7 @@
                 color: '#3c4557',
               }"
             >
-              {{
-                `${currentPage * 9 + 1} to ${
-                  currentPage * 9 + 9 > services.length
-                    ? chunkedServices[currentPage].length + currentPage * 9
-                    : currentPage * 9 + 9
-                }`
-              }}
+              {{ paginatedDisplayInfo }}
             </span>
             {{ `of ${services.length} services` }}
           </span>
@@ -117,6 +117,7 @@ import {
   ref,
   watch,
   defineAsyncComponent,
+  computed,
 } from 'vue'
 import useServices from '@/composables/useServices'
 import ServiceCatalogProduct from '@/components/ServiceCatalogProduct.vue'
@@ -140,6 +141,7 @@ export default defineComponent({
       currentPage,
       totalPages,
       getServices,
+      error,
     } = useServices()
 
     const debounce = (fn: (...args: any[]) => any) => {
@@ -162,6 +164,16 @@ export default defineComponent({
     const searchQuery = ref('')
     const isCreateServiceModalVisible = ref(false)
 
+    const paginatedDisplayInfo = computed(
+      () =>
+        `${currentPage.value * 9 + 1} to ${
+          currentPage.value * 9 + 9 > services.value.length
+            ? chunkedServices.value[currentPage.value].length +
+              currentPage.value * 9
+            : currentPage.value * 9 + 9
+        }`,
+    )
+
     // Watch for changes in the search string
     watch(searchQuery, () => {
       debouncedGetServices(searchQuery.value)
@@ -176,6 +188,8 @@ export default defineComponent({
       totalPages,
       isCreateServiceModalVisible,
       onLearnMoreClick,
+      error,
+      paginatedDisplayInfo,
     }
   },
 })
