@@ -12,7 +12,7 @@ onMounted(() => {
   }
 })
 
-function timeDifference(previous: Date) {
+const timeDifference = (previous: Date): string => {
   let current = +new Date()
   let msPerMinute = 60 * 1000
   let msPerHour = msPerMinute * 60

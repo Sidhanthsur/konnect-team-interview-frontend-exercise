@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import tickImage from '@/assets/tick.svg'
-import crossImage from '@/assets/cross.svg'
-
 defineProps<{ published: boolean }>()
 </script>
 <template>
@@ -13,7 +10,7 @@ defineProps<{ published: boolean }>()
     >
       <img
         alt="Tick"
-        :src="tickImage"
+        src="@/assets/tick.svg"
       >
       <span class="service-catalog-publish-status__title">Published to portal</span>
     </div>
@@ -23,8 +20,8 @@ defineProps<{ published: boolean }>()
       class="service-catalog-publish-status__container"
     >
       <img
-        alt="Tick"
-        :src="crossImage"
+        alt="Cross"
+        src="@/assets/cross.svg"
       >
       <span class="service-catalog-publish-status__title">Unpublished</span>
     </div>

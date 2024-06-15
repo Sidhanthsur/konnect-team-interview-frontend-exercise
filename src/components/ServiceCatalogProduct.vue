@@ -13,7 +13,6 @@ const DeveloperDetailsModal = defineAsyncComponent(
 
 const props = defineProps<{ service: Service }>()
 
-
 const router = useRouter()
 const isDeveloperModalVisible = ref(false)
 const uniqueDevelopers = computed(() => {
@@ -38,11 +37,7 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
     class="service-catalog-product__card"
     @click="setVersionsInServiceDetailsStore(service)"
   >
-    <div
-      :style="{
-        'pointer-events': 'none',
-      }"
-    >
+    <div>
       <div class="service-catalog-product__top-header">
         <!-- Published status -->
         <ServiceCatalogPublishStatus :published="service.published" />

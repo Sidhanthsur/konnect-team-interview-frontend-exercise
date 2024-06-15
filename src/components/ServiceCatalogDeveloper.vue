@@ -8,7 +8,7 @@ const props = defineProps<{
   uniqueDevelopers: Developer[];
 }>()
 
-const getDevelopers = computed(() => {
+const displayDevelopers = computed(() => {
   const developers = [...props.uniqueDevelopers]
 
   if (developers.length > 3) {
@@ -23,7 +23,7 @@ const imageReferences = ref<Record<string, boolean>>({})
 
 // add id of developer as key with a boolean value
 watchEffect(() => {
-  getDevelopers.value.forEach((developer) => {
+  displayDevelopers.value.forEach((developer) => {
     if (developer.avatar !== '+') {
       imageReferences.value[developer.id] = false
     }
@@ -37,7 +37,7 @@ watchEffect(() => {
     @click="emit('onDeveloperClicked', $event)"
   >
     <template
-      v-for="{ avatar, name, id } in getDevelopers"
+      v-for="{ avatar, name, id } in displayDevelopers"
       :key="id"
     >
       <div

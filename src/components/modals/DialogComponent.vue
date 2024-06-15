@@ -1,6 +1,8 @@
 <script setup lang="ts">
 defineProps<{ title: string }>()
-defineEmits(['onClose'])
+defineEmits<{
+  onClose: [];
+}>()
 </script>
 <template>
   <div class="dialog">
@@ -40,7 +42,8 @@ defineEmits(['onClose'])
   border-radius: 1.2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-width: 24rem;
-  padding: 20px;
+  padding: 2rem;
+  padding-top: 0;
   position: relative;
 
   @media (max-width: 768px) {

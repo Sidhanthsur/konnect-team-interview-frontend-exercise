@@ -2,7 +2,9 @@
 import { type Developer } from '@/constants/serviceTypes'
 import Dialog from '@/components/modals/DialogComponent.vue'
 const props = defineProps<{ developers: Developer[] }>()
-defineEmits(['onClose'])
+defineEmits<{
+  onClose: [];
+}>()
 </script>
 
 <template>
@@ -36,14 +38,14 @@ defineEmits(['onClose'])
 .service-catalog-developer__avatars {
   background: rgba(241, 241, 248, 1);
   border-radius: 50%;
-  height: 36px;
-  margin-right: 12px;
-  width: 36px;
+  height: 3.6rem;
+  margin-right: 1.2rem;
+  width: 3.6rem;
 }
 
 .developer-details-modal__content {
   align-items: center;
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 1rem;
 }
 </style>

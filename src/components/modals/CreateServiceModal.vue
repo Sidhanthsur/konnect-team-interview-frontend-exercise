@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import Dialog from '@/components/modals/DialogComponent.vue'
-defineEmits(['onClose'])
+defineEmits<{
+  onClose: [];
+}>()
 </script>
 
 <template>

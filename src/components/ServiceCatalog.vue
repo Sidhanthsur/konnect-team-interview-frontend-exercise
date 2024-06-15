@@ -59,7 +59,7 @@
           />
         </div>
 
-        <!-- Buttons for going next and previos-->
+        <!-- Buttons for going next and previous-->
         <div class="service-catalog__pagination">
           <img
             v-if="currentPage === 0"
