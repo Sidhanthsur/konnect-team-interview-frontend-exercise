@@ -2,6 +2,7 @@ import { vi, describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import ServiceCatalog from './ServiceCatalog.vue'
 import servicesData from '../../mocks/services'
+import flushPromises from 'flush-promises'
 
 // Mock the axios module for fetching API services
 const mockedResponses = new Map()
@@ -39,6 +40,8 @@ describe('ServiceCatalog', () => {
 
     const wrapper = mount(ServiceCatalog)
 
-    expect(wrapper.findTestId('loading').isVisible()).toBe(true)
+    await flushPromises()
+
+    expect(wrapper.findTestId('no-results').isVisible()).toBe(true)
   })
 })
