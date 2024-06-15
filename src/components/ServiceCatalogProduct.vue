@@ -5,11 +5,26 @@ import ServiceCatalogRuntimeLog from "@/components/ServiceCatalogRuntimeLog.vue"
 import ServiceCatalogDeveloper from "@/components/ServiceCatalogDeveloper.vue";
 import { useServiceDetailsStore } from "@/stores/serviceDetails";
 import { useRouter } from "vue-router";
+import { computed, defineProps, ref, defineAsyncComponent } from "vue";
 
-defineProps<{ service: Service }>();
+const DeveloperDetailsModal = defineAsyncComponent(
+  () => import("@/components/modals/DeveloperDetailsModal.vue")
+);
+
+const props = defineProps<{ service: Service }>();
 
 const serviceDetailsStore = useServiceDetailsStore();
 const router = useRouter();
+const isDeveloperModalVisible = ref(false);
+const uniqueDevelopers = computed(() => {
+  return props.service.versions
+    .filter((version) => version.developer)
+    .map((version) => version.developer)
+    .filter(
+      (developer, index, self) =>
+        index === self.findIndex((t) => t.id === developer.id)
+    );
+});
 
 const setVersionsInServiceDetailsStore = (service: Service) => {
   serviceDetailsStore.versions = service.versions;
@@ -20,7 +35,7 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
 <template>
   <div
     class="service-catalog-product__card"
-    @click.self="setVersionsInServiceDetailsStore(service)"
+    @click="setVersionsInServiceDetailsStore(service)"
   >
     <div
       :style="{
@@ -60,9 +75,21 @@ const setVersionsInServiceDetailsStore = (service: Service) => {
       <ServiceCatalogDeveloper
         v-if="service.versions.length"
         :versions="service.versions"
+        :uniqueDevelopers="uniqueDevelopers"
+        @onDeveloperClicked="
+          (event) => {
+            event.stopPropagation();
+            isDeveloperModalVisible = true;
+          }
+        "
       />
     </div>
   </div>
+  <DeveloperDetailsModal
+    v-if="isDeveloperModalVisible"
+    :developers="uniqueDevelopers"
+    @onClose="isDeveloperModalVisible = false"
+  />
 </template>
 
 <style lang="scss" scoped>

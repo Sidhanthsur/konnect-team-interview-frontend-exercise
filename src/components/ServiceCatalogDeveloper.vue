@@ -1,23 +1,15 @@
 <script setup lang="ts">
-import { computed, watchEffect, ref, watch } from "vue";
-import { type Version } from "@/constants/serviceTypes";
+import { computed, watchEffect, ref } from "vue";
+import { type Developer, type Version } from "@/constants/serviceTypes";
 
-import DeveloperDetailsModal from "@/components/modals/DeveloperDetailsModal.vue";
-const props = defineProps<{ versions: Version[] }>();
-const isDeveloperModalVisible = ref(false);
-
-const uniqueDevelopers = computed(() => {
-  return props.versions
-    .filter((version) => version.developer)
-    .map((version) => version.developer)
-    .filter(
-      (developer, index, self) =>
-        index === self.findIndex((t) => t.id === developer.id)
-    );
-});
+const emit = defineEmits<{ onDeveloperClicked: [Event] }>();
+const props = defineProps<{
+  versions: Version[];
+  uniqueDevelopers: Developer[];
+}>();
 
 const getDevelopers = computed(() => {
-  const developers = [...uniqueDevelopers.value];
+  const developers = [...props.uniqueDevelopers];
 
   if (developers.length > 3) {
     developers.splice(2);
@@ -42,7 +34,7 @@ watchEffect(() => {
 <template>
   <div
     class="service-catalog-developer"
-    @click="isDeveloperModalVisible = true"
+    @click="emit('onDeveloperClicked', $event)"
   >
     <template v-for="{ avatar, name, id } in getDevelopers">
       <div
@@ -75,11 +67,6 @@ watchEffect(() => {
       </div>
     </template>
   </div>
-  <DeveloperDetailsModal
-    v-if="isDeveloperModalVisible"
-    :developers="uniqueDevelopers"
-    @onClose="isDeveloperModalVisible = false"
-  />
 </template>
 
 <style scoped>
