@@ -46,8 +46,8 @@ li::marker {
 }
 
 ul {
-  font-size: 12px;
   color: rgba(60, 69, 87, 1);
+  font-size: 12px;
   padding-left: 1.6rem;
 }
 
@@ -61,9 +61,9 @@ ul {
 }
 
 .service-catalog-runtime-log__log {
+  color: rgba(112, 120, 136, 1);
   font-size: 12px;
   font-weight: 600;
-  color: rgba(112, 120, 136, 1);
 }
 
 .service-catalog-runtime-log__log-value {

@@ -52,10 +52,10 @@ defineEmits(['onClose'])
 .create-service-modal__button {
   background: #07a88d;
   border: none;
-  padding: 0.8rem;
-  color: white;
   border-radius: 0.4rem;
+  color: white;
   margin-top: 0.8rem;
+  padding: 0.8rem;
 }
 .create-service-modal__label {
   margin-top: 1.6rem;

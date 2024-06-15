@@ -33,13 +33,13 @@ defineProps<{ published: boolean }>()
 
 <style lang="scss" scoped>
 .service-catalog-publish-status__container {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 .service-catalog-publish-status__title {
+  color: rgba(60, 69, 87, 0.7);
   font-size: 12px;
   font-weight: 400;
-  color: rgba(60, 69, 87, 0.7);
   margin-left: 5px;
 }
 </style>

@@ -34,16 +34,16 @@ defineEmits(['onClose'])
   flex-direction: column;
 }
 .service-catalog-developer__avatars {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
   background: rgba(241, 241, 248, 1);
+  border-radius: 50%;
+  height: 36px;
   margin-right: 12px;
+  width: 36px;
 }
 
 .developer-details-modal__content {
-  display: flex;
   align-items: center;
+  display: flex;
   margin-bottom: 10px;
 }
 </style>

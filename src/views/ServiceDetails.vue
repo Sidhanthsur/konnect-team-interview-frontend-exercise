@@ -126,15 +126,15 @@ onUnmounted(() => {
 .service-details__card {
   background: #fff;
   border-radius: 0.8rem;
-  padding: 2rem;
   box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.1);
   margin-top: 1.6rem;
+  padding: 2rem;
 }
 .service-details__version {
-  display: flex;
   border-bottom: 1px solid #f1f1f5;
-  padding-bottom: 1.2rem;
+  display: flex;
   margin-bottom: 1rem;
+  padding-bottom: 1.2rem;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -162,25 +162,25 @@ onUnmounted(() => {
 }
 
 .service-details__back {
-  font-size: 1.6rem;
   color: #1155cb;
+  font-size: 1.6rem;
+  font-weight: 600;
   margin-bottom: 1rem;
   text-decoration: none;
-  font-weight: 600;
 }
 
 .service-details__versions-list {
-  padding: 0;
   max-width: 80rem;
+  padding: 0;
 }
 
 .service-details__http-tag {
   background: #f8f8fa;
+  border-radius: 0.4rem;
+  color: #1155cb;
   font-size: 1rem;
   font-weight: 500;
-  color: #1155cb;
   padding: 0.5rem;
-  border-radius: 0.4rem;
 }
 
 .service-details__developer--empty-img {
@@ -188,32 +188,32 @@ onUnmounted(() => {
 }
 
 .service-details__developer-avatar {
-  width: 2rem;
-  height: 2rem;
   border-radius: 50%;
+  height: 2rem;
   margin-left: 0.5rem;
   margin-right: 1rem;
+  width: 2rem;
 }
 
 .service-details__detail-name {
+  color: #262626;
   font-size: 1.3rem;
   font-weight: 600;
-  color: #262626;
   width: 6rem;
 }
 
 .service-details__detail-description {
-  width: 24rem;
   color: #8a8a8a;
   font-size: 1.2rem;
   font-weight: 400;
   margin-right: 3rem;
+  width: 24rem;
 }
 
 .service-details__developer-name {
-  font-weight: 600;
-  font-size: 1.3rem;
   color: #3c4557;
+  font-size: 1.3rem;
+  font-weight: 600;
 }
 
 .service-details__updated-at {

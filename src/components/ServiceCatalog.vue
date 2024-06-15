@@ -193,14 +193,14 @@ export default defineComponent({
 }
 
 .service-catalog__header {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-bottom: 2rem;
 
   @media (max-width: 1024px) {
-    flex-direction: column;
     align-items: flex-start;
+    flex-direction: column;
   }
 }
 
@@ -217,8 +217,8 @@ export default defineComponent({
   // show 9 products per page
   // 3 products per row
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 1.2rem;
+  grid-template-columns: repeat(3, 1fr);
   // for tablet view
   @media (min-width: 768px) and (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr);
@@ -231,9 +231,9 @@ export default defineComponent({
 }
 
 .service-catalog__sub-title {
-  font-weight: 400;
-  font-size: 1.6rem;
   color: #3c4557;
+  font-size: 1.6rem;
+  font-weight: 400;
 }
 
 .service-catalog__sub-title--link {
@@ -242,20 +242,20 @@ export default defineComponent({
 }
 
 .service-catalog__search-input {
-  border: 1px solid #e7e7ec;
-  background-color: #fff;
-  display: flex;
   align-items: center;
+  background-color: #fff;
+  border: 1px solid #e7e7ec;
+  display: flex;
   height: 4.4rem;
-  padding: 0 0.8rem;
   margin-right: 1rem;
+  padding: 0 0.8rem;
 }
 
 .service-catalog__search-input-box {
   border: none;
-  width: 100%;
   color: #6f7787;
   font-size: 1.4rem;
+  width: 100%;
 
   &:focus {
     outline: none;
@@ -263,36 +263,36 @@ export default defineComponent({
 }
 
 .service-catalog__create-service {
+  align-items: center;
+  background: #07a88d;
+  border: none;
+  border-radius: 10rem;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-size: 1.6rem;
+  font-weight: 600;
   height: 4.4rem;
   padding: 1.2rem 2.4rem 1.2rem 1.6rem;
-  background: #07a88d;
-  display: flex;
-  align-items: center;
-  border: none;
-  font-weight: 600;
-  font-size: 1.6rem;
-  color: white;
-  border-radius: 10rem;
-  cursor: pointer;
 }
 
 .service-catalog__pagination {
+  align-items: center;
+  bottom: 1rem;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  max-width: 26.2rem;
-  position: sticky;
-  bottom: 1rem;
   left: 0;
-  right: 0;
   margin: auto;
   margin-top: 1.2rem;
+  max-width: 26.2rem;
+  position: sticky;
+  right: 0;
 }
 
 .service-catalog__pagination-title {
+  color: #707888;
   font-size: 1.3rem;
   font-weight: 500;
-  color: #707888;
   opacity: 70%;
 }
 </style>

@@ -77,21 +77,22 @@ watchEffect(() => {
   display: flex;
 }
 .service-catalog-developer__avatars {
-  width: 3.6rem;
-  height: 3.6rem;
-  border-radius: 50%;
   background: rgba(241, 241, 248, 1);
+  border-radius: 50%;
+  height: 3.6rem;
   margin-left: -14px;
   position: relative;
+  width: 3.6rem;
 }
 
 .service-catalog-developer__avatars--plus {
+  align-items: center;
+  border: 1px solid white;
   color: rgba(119, 125, 138, 1);
   display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 12px;
   font-weight: 600;
+  justify-content: center;
   position: relative;
 }
 
@@ -106,17 +107,13 @@ watchEffect(() => {
   }
 }
 
-.service-catalog-developer__avatars--plus {
-  border: 1px solid white;
-}
-
 .service-catalog-developer__avatars-hover {
-  position: absolute;
-  top: -3.6rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
   font-size: 8px;
   padding: 0.4rem;
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
   right: 15%;
+  top: -3.6rem;
 }
 </style>
